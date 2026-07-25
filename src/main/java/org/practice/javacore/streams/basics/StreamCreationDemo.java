@@ -1,6 +1,7 @@
-package org.practice.javacore.streams;
+package org.practice.javacore.streams.basics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -31,6 +32,17 @@ public class StreamCreationDemo {
         //method reference ile
         //class instance'ı :: metot ismi:
         // departmentStream.forEach(System.out::println);
+
+        // Collection veya array oluşturmadan, verilen değerlerden doğrudan Stream oluşturabiliriz.
+        Stream<String> stringStream = Stream.of("human resources", "management");
+        stringStream.forEach(s -> System.out.println(s));
+
+        // Array, Collection değildir; bu nedenle arraysOfWord.stream() yazamayız.
+        // Bir array'den Stream oluşturmak için Arrays.stream(array) kullanırız.
+        String[] arraysOfWord = {"apple", "banana"};
+        // arraysOfWord.stream(); // Derleme hatası: String[] içinde stream() metodu yoktur.
+        Stream<String> streamOfWords = Arrays.stream(arraysOfWord);
+        streamOfWords.forEach(System.out::println);
 
     }
 }

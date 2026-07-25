@@ -1,4 +1,4 @@
-package org.practice.javacore.streams;
+package org.practice.javacore.streams.skip;
 
 import java.util.stream.Stream;
 

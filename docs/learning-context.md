@@ -9,9 +9,9 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
   kullanımını adım adım öğrenmek için kullanılıyor.
 - Konular yalnızca syntax olarak değil, gerçek bir uygulamadaki business karşılığı
   üzerinden anlaşılmak isteniyor.
-- Stream konusu henüz sistematik olarak işlenmedi. `filter()`, `map()` ve
-  `forEach()` yalnızca functional interface bağlantısını gösterecek kadar ön bilgi
-  olarak anlatıldı.
+- Stream API serisine yeni başlanıyor. `filter()`, `map()` ve `forEach()` daha önce
+  functional interface bağlantısını gösterecek kadar ön bilgi olarak anlatıldı;
+  bundan sonra konu `org.practice.javacore.streams` altında sistematik işlenecek.
 - Kod örneklerinde lambda'nın hangi interface metodunu uyguladığı ve davranışın ne
   zaman gerçekten çalıştığı özellikle açıklanmalı.
 
@@ -126,9 +126,9 @@ tutulmalı; gerekmedikçe ileri Stream ayrıntılarına geçilmemeli.
 
 Dosyalar:
 
-- `src/main/java/org/practice/javacore/lambda/withInterface/Hello.java`
-- `src/main/java/org/practice/javacore/lambda/withInterface/ArithmeticOperation.java`
-- `src/main/java/org/practice/javacore/lambda/withInterface/LambdaExpressionDemo.java`
+- `src/main/java/org/practice/javacore/functional/lambda/custominterface/Hello.java`
+- `src/main/java/org/practice/javacore/functional/lambda/custominterface/ArithmeticOperation.java`
+- `src/main/java/org/practice/javacore/functional/lambda/custominterface/LambdaExpressionDemo.java`
 
 İşlenen ayrımlar:
 
@@ -163,8 +163,6 @@ Dosyalar:
 
 ### Consumer
 
-Şu anda çalışılan ana konu budur.
-
 İşlenenler:
 
 - `Consumer<T>` ve `void accept(T)`
@@ -173,6 +171,22 @@ Dosyalar:
 - Consumer'ın sonucu yazdırması ile Function'ın sonucu döndürmesi arasındaki fark
 - `andThen()` içinde aynı girdinin iki Consumer'a sırayla verilmesi
 - `Map<K,V>` ile Stream `map()` metodunun farklı kavramlar olması
+
+### Method reference
+
+İşlendi:
+
+- Static method reference: `ClassName::staticMethod`
+- Belirli nesnenin instance metodu: `instance::method`
+- Sınıf üzerinden instance metodu: `ClassName::instanceMethod`
+- Constructor reference: `ClassName::new`
+- Method/constructor reference'ın uyumlu functional interface hedef tipine ihtiyaç
+  duyması
+
+### Streams
+
+Şu anda başlanılan ana konu budur. Yeni örnekler
+`src/main/java/org/practice/javacore/streams` altında geliştirilecektir.
 
 ## Doküman indeksi
 
@@ -196,6 +210,13 @@ Dosyalar:
 - Hızlı oluşturma ve kullanım rehberi:
   `docs/java-collections-quick-reference.md`
 
+### Toplu functional interface özeti
+
+- Projedeki özel ve hazır functional interface kullanımları:
+  `docs/functional-interfaces-cheat-sheet.md`
+- Predicate, Function ve Consumer lambda örneklerinin kısa cümleli toplu özeti:
+  `docs/predicate-function-consumer-lambda-examples.md`
+
 ## Çalışma yöntemi
 
 - Öğrenci requirement'ları önce kendisi çözmek istiyor.
@@ -209,9 +230,9 @@ Dosyalar:
 
 ## Sonraki muhtemel adımlar
 
-1. `consumer-requirements.md` içindeki soruları sırayla çözmek
-2. Kullanıcı istediğinde `consumer-solutions.md` oluşturmak
-3. Consumer sonrası sıradaki hazır functional interface'e geçmek
-4. Functional interface'ler yeterince oturduktan sonra Stream API'yi ayrı konu
-   olarak işlemek
-
+1. Stream API temel kavramlarını `streams.basics` altında işlemek
+2. `filter`, `map` ve `forEach` bağlantılarını bu kez Stream akışı açısından
+   detaylandırmak
+3. Intermediate ve terminal operation ayrımına ilerlemek
+4. Consumer requirement'larına gerektiğinde geri dönmek ve kullanıcı istediğinde
+   `consumer-solutions.md` oluşturmak
