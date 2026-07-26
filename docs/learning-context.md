@@ -9,9 +9,9 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
   kullanımını adım adım öğrenmek için kullanılıyor.
 - Konular yalnızca syntax olarak değil, gerçek bir uygulamadaki business karşılığı
   üzerinden anlaşılmak isteniyor.
-- Stream API serisine yeni başlanıyor. `filter()`, `map()` ve `forEach()` daha önce
-  functional interface bağlantısını gösterecek kadar ön bilgi olarak anlatıldı;
-  bundan sonra konu `org.practice.javacore.streams` altında sistematik işlenecek.
+- Stream API serisi `org.practice.javacore.streams` altında sistematik olarak
+  işleniyor. Temel oluşturma ve dolaşma sonrasında `filter`, `map`, `flatMap`,
+  `forEach`, `limit`, `skip`, `reduce`, `collect` ve `count` konularına geçildi.
 - Kod örneklerinde lambda'nın hangi interface metodunu uyguladığı ve davranışın ne
   zaman gerçekten çalıştığı özellikle açıklanmalı.
 
@@ -185,8 +185,23 @@ Dosyalar:
 
 ### Streams
 
-Şu anda başlanılan ana konu budur. Yeni örnekler
-`src/main/java/org/practice/javacore/streams` altında geliştirilecektir.
+Şu anda işlenen ana konu budur. Yeni örnekler
+`src/main/java/org/practice/javacore/streams` altında geliştirilmektedir.
+
+İşlenen ve alıştırma seti hazırlanan operation'lar:
+
+- `filter`
+- `flatMap`
+- `limit`
+- `skip`
+- `reduce`, `mapToInt`, `mapToDouble`, `sum`, `min`, `max`, `average` ve
+  `summaryStatistics`
+- `collect` ve hazır `Collectors`
+- `count`
+
+Her konu için 10 gerçek uygulama requirement'ı ve ayrı örnek çözüm dosyası
+bulunur. Ayrıca bu operation'ları anlamlı pipeline'larda birlikte kullanan 20
+karışık uygulama sorusu ve çözümü hazırlanmıştır.
 
 ## Doküman indeksi
 
@@ -217,6 +232,25 @@ Dosyalar:
 - Predicate, Function ve Consumer lambda örneklerinin kısa cümleli toplu özeti:
   `docs/predicate-function-consumer-lambda-examples.md`
 
+### Stream alıştırmaları
+
+- Filter: `docs/stream-filter-requirements.md`,
+  `docs/stream-filter-solutions.md`
+- FlatMap: `docs/stream-flatmap-requirements.md`,
+  `docs/stream-flatmap-solutions.md`
+- Limit: `docs/stream-limit-requirements.md`,
+  `docs/stream-limit-solutions.md`
+- Skip: `docs/stream-skip-requirements.md`,
+  `docs/stream-skip-solutions.md`
+- Reduce ve sayısal indirgeme: `docs/stream-reduce-requirements.md`,
+  `docs/stream-reduce-solutions.md`
+- Collect: `docs/stream-collect-requirements.md`,
+  `docs/stream-collect-solutions.md`
+- Count: `docs/stream-count-requirements.md`,
+  `docs/stream-count-solutions.md`
+- 20 karışık Stream pipeline sorusu: `docs/stream-mixed-requirements.md`,
+  `docs/stream-mixed-solutions.md`
+
 ## Çalışma yöntemi
 
 - Öğrenci requirement'ları önce kendisi çözmek istiyor.
@@ -230,9 +264,9 @@ Dosyalar:
 
 ## Sonraki muhtemel adımlar
 
-1. Stream API temel kavramlarını `streams.basics` altında işlemek
-2. `filter`, `map` ve `forEach` bağlantılarını bu kez Stream akışı açısından
-   detaylandırmak
-3. Intermediate ve terminal operation ayrımına ilerlemek
+1. Stream requirement'larını öğrencinin seçtiği konudan başlayarak çözmek
+2. Her çözümde pipeline sırasını, intermediate/terminal ayrımını ve kullanılan
+   functional interface'i açıklamak
+3. Konu bazlı sorulardan sonra karışık Stream pipeline sorularına geçmek
 4. Consumer requirement'larına gerektiğinde geri dönmek ve kullanıcı istediğinde
    `consumer-solutions.md` oluşturmak
