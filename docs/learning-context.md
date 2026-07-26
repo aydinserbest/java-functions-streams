@@ -5,7 +5,14 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
 
 ## Güncel oturum devri — ebook çalışması
 
+- Bu öğrenme çalışmasının canonical proje/repository yolu:
+  `/Users/freefree/Projects/java-core/java-functions-collections`
+- `/Users/freefree/Projects/java-lambdas-streams` ayrı ve henüz ilk commit'i
+  olmayan başka bir IntelliJ projesidir. Finder veya IntelliJ'de bu klasör açık
+  olabilir; ebook branch'indeki dosyalar aranırken onunla karıştırılmamalıdır.
 - Aktif çalışma branch'i `ebook-practice` branch'idir.
+- Branch, GitHub'daki `origin/ebook-practice` branch'ini takip eder. Remote:
+  `https://github.com/aydinserbest/java-functions-streams.git`
 - `main`, önceki Java functional interface, collections ve Stream çalışmalarının
   korunduğu ana branch'tir.
 - Kullanıcı artık aynı konudaki bir ebook'u bölüm bölüm çalışacaktır. Ebook metnini
@@ -24,9 +31,8 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
   edelim” dediğinde bu ebook çalışma bağlamı varsayılan kabul edilmeli; bağlamı
   yeniden uzun uzun anlatması istenmemelidir.
 - 26 Temmuz 2026 itibarıyla branch'te `introduction` ve `usingcollections`
-  paketlerinde ebook çalışmaları bulunuyor. Çalışma ağacında kullanıcının yaptığı
-  çok sayıda silme ve yeni/değişen dosya olabilir; bunlar kullanıcının branch
-  düzenlemesi kabul edilmeli ve açık talep olmadan geri alınmamalıdır.
+  paketlerinde ebook çalışmaları bulunuyor. Son push edilen commit
+  `60d3513 Explain lazy stream transformation pipelines` commit'idir.
 - Ebook'un collections bölümünde iteration evrimi işlendi. Kod
   `src/main/java/org/practice/javacore/usingcollections/Iteration.java`, açıklama
   ise aynı dizindeki `iteration-evolution.md` dosyasındadır. Klasik `for`,
@@ -38,6 +44,21 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
   çalışma, dış mutable listeyi `forEach()` içinde değiştirmenin sakıncaları,
   `List.add()` boolean döndürse de lambdanın hedef tipe göre Consumer olması ve
   `map(...).toList()` tercihi ele alındı.
+- `TransformStreamExample.java` ile `map()` ve `filter()` sonrasında oluşan
+  Stream'in ayrı değişkende tutulması denendi. Şu zihinsel model yerleşti:
+  `map()` girdiden çıktı üreten bir pipeline aşaması ekler; gündelik anlamda
+  biçim dönüşümü (`String -> uppercase String`), özellik çıkarma/projection
+  (`String -> length`) veya başka nesne üretme yapabilir. `map()` ve `filter()`
+  lazy intermediate operation'lardır; elemanlar ancak `forEach()`, `toList()`
+  gibi terminal operation geldiğinde gerçekten işlenir.
+- Her terminal operation pipeline'ı çalıştırır fakat her terminal operation
+  koleksiyon üretmez: `forEach()` yan etki yapıp `void` döndürür, `toList()` ise
+  sonuçları yeni `List` içinde toplar. `map()` koleksiyon değil yeni bir Stream
+  aşaması döndürür; `Stream` tek kullanımlıdır ve kaynak liste değişmez.
+- Collections ebook notlarının Finder'daki gerçek konumu:
+  `src/main/java/org/practice/javacore/usingcollections`. Bu dizinde
+  `iteration-evolution.md` ve `transform-explanation.md` bulunur; proje kökünde
+  doğrudan görünmezler.
 - Ebook'un `introduction` paketindeki `Cities`, `DiscountImperative` ve
   `DiscountFunctional` sınıfları işlendi. Şehir listesinde Chicago arama ile
   fiyatı 20'den yüksek ürünlere yüzde 10 indirim uygulayıp toplamı bulma
