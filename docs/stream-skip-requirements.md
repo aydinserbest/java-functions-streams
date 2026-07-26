@@ -11,7 +11,8 @@ kaynağın mevcut sırasına bağlı olduğunu unutma.
 ### Business açısından burada ne yapılıyor?
 
 Kullanıcı ilk beş ürünü gördükten sonra ikinci sayfayı açar. Servis önce ilk
-sayfanın kayıtlarını atlar, ardından yalnızca ikinci sayfaya ait beş kaydı döndürür.
+sayfanın kayıtlarını atlar, ardından yalnızca ikinci sayfaya ait beş kaydı
+döndürür.
 
 ## 2. İlk üç eğitim videosu tamamlandıktan sonra devam etme
 
@@ -41,8 +42,9 @@ adayı atla ve sonraki üç kişiyi yedek listeye al.
 
 ### Business açısından burada ne yapılıyor?
 
-İlk iki aday ana kadroya seçilmiştir. Yedek liste sıralamadaki sonraki üç kişiden
-oluşur; bu nedenle `sorted`, `skip` ve `limit` sırası business sonucunu belirler.
+İlk iki aday ana kadroya seçilmiştir. Yedek liste sıralamadaki sonraki üç
+kişiden oluşur; bu nedenle `sorted`, `skip` ve `limit` sırası business sonucunu
+belirler.
 
 ## 5. Son işlenen işlemden sonraki kayıtları alma
 
@@ -51,8 +53,8 @@ işlenmiştir. Bu miktarı atlayıp kalan kayıtları döndüren metot yaz.
 
 ### Business açısından burada ne yapılıyor?
 
-Toplu iş yarıda durduğunda sistem baştan başlamaz. Checkpoint'te tutulan işlenmiş
-kayıt sayısı kadar eleman geçilir ve kalan iş kuyruğu hazırlanır.
+Toplu iş yarıda durduğunda sistem baştan başlamaz. Checkpoint'te tutulan
+işlenmiş kayıt sayısı kadar eleman geçilir ve kalan iş kuyruğu hazırlanır.
 
 ## 6. Ücretsiz örnek bölümlerden sonraki ücretli bölümleri gösterme
 
@@ -61,8 +63,9 @@ abonelik ekranındaki ücretli içerik listesini üret.
 
 ### Business açısından burada ne yapılıyor?
 
-Ön izleme ve abonelik ekranları aynı kaynak listeyi farklı başlangıç noktalarıyla
-kullanır. `skip()` yeni görünüm oluşturur; kitap içeriğini değiştirmez.
+Ön izleme ve abonelik ekranları aynı kaynak listeyi farklı başlangıç
+noktalarıyla kullanır. `skip()` yeni görünüm oluşturur; kitap içeriğini
+değiştirmez.
 
 ## 7. Log dosyasındaki eski 100 kaydı atlama
 
@@ -107,4 +110,3 @@ eskiye sırala, en yeni olayı atla ve kalan geçmişi göster.
 
 Hesap ekranında en yeni olay ayrı bir “son aktivite” kartında zaten gösterilir.
 Geçmiş listesi aynı kaydı tekrarlamamak için sıralamadaki ilk olayı atlar.
-

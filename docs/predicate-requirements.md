@@ -29,9 +29,9 @@ uygun olması anlamındadır.
 ### Business açısından burada ne yapılıyor?
 
 Bir kayıt ekranından gelen kullanıcı adı sisteme kaydedilmeden önce biçimsel iş
-kurallarından geçiriliyor. Predicate, kullanıcı adını değiştirmez veya kaydetmez;
-yalnızca kayıt akışının devam edip edemeyeceğine ilişkin `true` ya da `false`
-kararı üretir.
+kurallarından geçiriliyor. Predicate, kullanıcı adını değiştirmez veya
+kaydetmez; yalnızca kayıt akışının devam edip edemeyeceğine ilişkin `true` ya da
+`false` kararı üretir.
 
 Gerçek bir kayıt ekranı düşün:
 
@@ -40,8 +40,8 @@ Kullanıcı adı: [ mehmet ]
                [ Kayıt Ol ]
 ```
 
-Kullanıcı butona bastığında değer doğrudan kaydedilmez. Sistemin koyduğu kurallar
-şunlardır:
+Kullanıcı butona bastığında değer doğrudan kaydedilmez. Sistemin koyduğu
+kurallar şunlardır:
 
 - Kullanıcı adı girilmiş olmalı.
 - Yalnızca boşluklardan oluşmamalı.
@@ -65,8 +65,8 @@ Aynı metoda farklı Predicate'ler göndererek bir sayının:
 - 10 ile 100 arasında olup olmadığını
 - 3'e tam bölünüp bölünmediğini
 
-kontrol et. `checkNumber` metodu koşulun ayrıntısını bilmemeli; yalnızca dışarıdan
-gelen Predicate'i çalıştırmalı.
+kontrol et. `checkNumber` metodu koşulun ayrıntısını bilmemeli; yalnızca
+dışarıdan gelen Predicate'i çalıştırmalı.
 
 Gerçek bir sipariş ekranında aynı adet için farklı sorular sorulabilir:
 
@@ -80,9 +80,9 @@ Gerçek bir sipariş ekranında aynı adet için farklı sorular sorulabilir:
 ### Business açısından burada ne yapılıyor?
 
 Ödeme tutarı, sipariş adedi veya paket büyüklüğü gibi bir sayıya farklı iş
-kuralları uygulanabiliyor. Genel kontrol mekanizması değişmeden pozitiflik, çiftlik,
-izin verilen aralık veya paket sayısına tam bölünebilme gibi karar davranışları
-Predicate olarak dışarıdan veriliyor.
+kuralları uygulanabiliyor. Genel kontrol mekanizması değişmeden pozitiflik,
+çiftlik, izin verilen aralık veya paket sayısına tam bölünebilme gibi karar
+davranışları Predicate olarak dışarıdan veriliyor.
 
 ## 3. Aktif kullanıcıları filtreleme
 
@@ -103,10 +103,10 @@ Filtreleme işleminde `Predicate<User>` ve `stream().filter(...)` kullan.
 
 ### Business açısından burada ne yapılıyor?
 
-Sistemde kaydı bulunan herkes aktif işlemlere katılamayabilir. Bildirim gönderme,
-giriş izni veya görev atama gibi süreçler öncesinde yalnızca aktif kullanıcılar
-seçiliyor. Predicate her kullanıcı için "aktif mi?" kararı verir; `filter()` ise
-bu kararı bütün liste üzerinde çalıştırır.
+Sistemde kaydı bulunan herkes aktif işlemlere katılamayabilir. Bildirim
+gönderme, giriş izni veya görev atama gibi süreçler öncesinde yalnızca aktif
+kullanıcılar seçiliyor. Predicate her kullanıcı için "aktif mi?" kararı verir;
+`filter()` ise bu kararı bütün liste üzerinde çalıştırır.
 
 Örneğin yönetim panelinde "Aktif kullanıcılara bildirim gönder" işlemi olsun.
 Sistemin kuralları şunlardır:
@@ -142,10 +142,10 @@ Keyboard:  150 euro, stok 3   -> sonuçta olmalı
 
 ### Business açısından burada ne yapılıyor?
 
-Bir mağaza yüksek fiyatlı ve gerçekten satılabilir ürünleri ayrı bir raporda veya
-vitrinde göstermek istiyor. Fiyat ve stok iki bağımsız iş kuralıdır; ürünün sonuçta
-kalması için her ikisini de karşılaması gerektiğinden Predicate'ler `and()` ile
-birleştirilir.
+Bir mağaza yüksek fiyatlı ve gerçekten satılabilir ürünleri ayrı bir raporda
+veya vitrinde göstermek istiyor. Fiyat ve stok iki bağımsız iş kuralıdır; ürünün
+sonuçta kalması için her ikisini de karşılaması gerektiğinden Predicate'ler
+`and()` ile birleştirilir.
 
 Bir mağaza yöneticisi "Stokta bulunan ve fiyatı 100 euroyu aşan ürünleri getir"
 diyebilir. Sistemin iki ayrı kuralı vardır:
@@ -188,9 +188,9 @@ korunur; ekrandaki seçime göre ona gönderilen Predicate değişir.
 ### Business açısından burada ne yapılıyor?
 
 Operasyon, finans ve müşteri hizmetleri aynı sipariş havuzuna farklı sorular
-sorar: "Hangileri ödendi?", "Hangileri iptal edildi?" veya "Hangi yüksek tutarlı
-siparişler kargolandı?" Genel arama metodu sabit kalır; departmanın ihtiyacı olan
-seçim kuralı Predicate olarak gönderilir.
+sorar: "Hangileri ödendi? ", "Hangileri iptal edildi? " veya "Hangi yüksek
+tutarlı siparişler kargolandı? " Genel arama metodu sabit kalır; departmanın
+ihtiyacı olan seçim kuralı Predicate olarak gönderilir.
 
 ## 6. E-posta adresi doğrulama
 
@@ -232,8 +232,8 @@ adresin gerçekten var olduğunu değil, yalnızca temel biçimini sınar.
 
 Kayıt veya iletişim formundan gelen e-posta, sisteme kabul edilmeden önce temel
 biçim kurallarından geçiriliyor. Predicate e-posta göndermiyor ve adresi
-düzeltmiyor; yalnızca değerin sonraki işleme alınabilecek görünümde olup olmadığına
-karar veriyor.
+düzeltmiyor; yalnızca değerin sonraki işleme alınabilecek görünümde olup
+olmadığına karar veriyor.
 
 ## 7. İş başvurusuna uygun adayları bulma
 
@@ -270,9 +270,9 @@ Java bilgisi kuralını tekrar yazmadan Java bilmeyen adayları bulur.
 ### Business açısından burada ne yapılıyor?
 
 İnsan kaynakları, açık pozisyonun zorunlu kriterlerini aday listesine uygular.
-Deneyim, Java bilgisi ve çalışma uygunluğu ayrı değerlendirme kurallarıdır; uygun
-adayın üçünden de geçmesi gerekir. `negate()` ise mevcut "Java biliyor" kuralını
-tekrar yazmadan ters aday grubunu bulmayı sağlar.
+Deneyim, Java bilgisi ve çalışma uygunluğu ayrı değerlendirme kurallarıdır;
+uygun adayın üçünden de geçmesi gerekir. `negate()` ise mevcut "Java biliyor"
+kuralını tekrar yazmadan ters aday grubunu bulmayı sağlar.
 
 ## 8. Müşteri arama filtresi
 
@@ -341,8 +341,8 @@ listesine alınmaz.
 
 Finans ekibi ödeme hatırlatması veya tahsilat süreci başlatılacak faturaları
 belirler. Bir faturanın yalnızca eski tarihli olması yeterli değildir; halen
-ödenmemiş olması da gerekir. Yüksek tutar Predicate'i eklenerek öncelikli tahsilat
-listesi ayrıca üretilebilir.
+ödenmemiş olması da gerekir. Yüksek tutar Predicate'i eklenerek öncelikli
+tahsilat listesi ayrıca üretilebilir.
 
 ## 10. Dinamik ürün arama sistemi
 
@@ -390,12 +390,12 @@ Gerçek bir e-ticaret filtre panelinde kategori, alt/üst fiyat, minimum puan ve
 - Minimum puan seçildiyse rating sınırı geçilmeli.
 - Stok seçeneği işaretlendiyse yalnızca mevcut ürünler kalmalı.
 
-Yalnızca doldurulan alanların Predicate'leri birleştirilir; boş filtreler ürünleri
-gereksiz yere elemez.
+Yalnızca doldurulan alanların Predicate'leri birleştirilir; boş filtreler
+ürünleri gereksiz yere elemez.
 
 ### Business açısından burada ne yapılıyor?
 
-E-ticaret kullanıcısı kategori, fiyat aralığı, puan ve stok durumunu seçerek ürün
-arar. Her seçim bağımsız bir Predicate oluşturur; yalnızca doldurulan alanlar
-birleştirilir. Böylece her filtre kombinasyonu için ayrı metot yazmadan dinamik
-bir ürün arama davranışı elde edilir.
+E-ticaret kullanıcısı kategori, fiyat aralığı, puan ve stok durumunu seçerek
+ürün arar. Her seçim bağımsız bir Predicate oluşturur; yalnızca doldurulan
+alanlar birleştirilir. Böylece her filtre kombinasyonu için ayrı metot yazmadan
+dinamik bir ürün arama davranışı elde edilir.

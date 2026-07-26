@@ -39,6 +39,28 @@ Yalnızca boşluklardan oluşmamalı.
 En az 5 karakter olmalı.
 ```
 
+Requirement dosyalarındaki business bölümü, teknik isteğin daha kısa bir tekrarı
+olmamalıdır. Öğrenci soruyu bir şirket çalışanı veya uygulamanın kullanıcısı gibi
+okuduğunda ihtiyacı zihninde canlandırabilmelidir. Uygun olduğu yerde şu dört
+nokta somutlaştırılmalıdır:
+
+1. İşlemi isteyen aktör, ekran veya servis
+2. Sisteme gelen gerçek veri ve verinin neden bu biçimde bulunduğu
+3. Uygulanacak business kuralları ve kapsam dışında kalacak kayıtlar
+4. Kullanılacak sonuç ile yanlış/eksik çözümün doğuracağı iş problemi
+
+Örneğin “SMS ve e-posta lambda'sı yaz” demekle kalınmamalı; müşteri kaydı
+tamamlandığında aynı bildirim akışının telefon numarasına kısa mesaj veya kayıtlı
+e-posta adresine hoş geldin iletisi gönderebildiği, alıcı adının mesaja nasıl
+yansıdığı ve iki davranışın aynı sözleşmeyle neden değiştirilebilir olduğu
+açıklanmalıdır.
+
+Requirement belgelerindeki her business açıklaması, teknik terimleri henüz
+bilmeyen bir öğrencinin de zihninde canlandırabileceği, soruya özel bir mini iş
+senaryosu olmalıdır. Mümkün olduğunda gelen gerçek veri, tetiklenen olay,
+uygulanan kural ve ekranda/raporda/serviste oluşan somut sonuç örnek değerlerle
+gösterilmelidir. Aynı genel kontrol listesi bütün sorulara kopyalanmamalıdır.
+
 ## Yerleşmiş zihinsel modeller
 
 ### Lambda ve functional interface
@@ -183,6 +205,22 @@ Dosyalar:
 - Method/constructor reference'ın uyumlu functional interface hedef tipine ihtiyaç
   duyması
 
+### Comparable ve Comparator
+
+Tekrar çalışıldı:
+
+- Karşılaştırma sonucunda negatif, sıfır ve pozitif `int` değerlerinin anlamı
+- `Comparable<T>` ile sınıfın doğal sırasını `compareTo()` içinde tanımlama
+- `Comparator<T>` ile sınıfı değiştirmeden farklı business sıraları oluşturma
+- Bir sınıfın genellikle tek doğal sırası, fakat ihtiyaç kadar Comparator'ı
+  olabilmesi
+- `Integer` ve `String` sınıflarının `Comparable` interface'ini zaten implement
+  etmesi
+- `comparing`, `comparingInt`, `reversed` ve `thenComparing`
+- Comparator'ı `sorted`, `min` ve `max` ile kullanma
+
+Örnekler `src/main/java/org/practice/javacore/comparator` paketindedir.
+
 ### Streams
 
 Şu anda işlenen ana konu budur. Yeni örnekler
@@ -190,18 +228,38 @@ Dosyalar:
 
 İşlenen ve alıştırma seti hazırlanan operation'lar:
 
+- Stream oluşturma, pipeline, lazy çalışma ve tek kullanımlılık
+- `iterate` ve `generate`
 - `filter`
+- `map`
 - `flatMap`
+- `forEach`
 - `limit`
 - `skip`
 - `reduce`, `mapToInt`, `mapToDouble`, `sum`, `min`, `max`, `average` ve
   `summaryStatistics`
 - `collect` ve hazır `Collectors`
+- `collectingAndThen`
+- `groupingBy`
+- `partitioningBy`
 - `count`
 
 Her konu için 10 gerçek uygulama requirement'ı ve ayrı örnek çözüm dosyası
 bulunur. Ayrıca bu operation'ları anlamlı pipeline'larda birlikte kullanan 20
 karışık uygulama sorusu ve çözümü hazırlanmıştır.
+
+İşlenen Stream operation'larını tek domain akışında tekrar görmek için iki
+birbirinden bağımsız kapsamlı örnek bulunur:
+
+- `streams.comprehensive.person`: çalışan rehberi, yetenek envanteri, maaş ve
+  şehir raporları
+- `streams.comprehensive.product`: katalog, stok, kampanya ve fiyat raporları
+
+Her örnekte POJO modeli, `List` kaynakları, `Map` rapor sonuçları ve konu konu
+ayrılmış açıklamalı demo metotları vardır.
+
+Kapsamlı örneklerin konu anlatımı ve önerilen çalışma sırası:
+`docs/comprehensive-stream-examples-guide.md`
 
 ## Doküman indeksi
 
@@ -218,12 +276,41 @@ karışık uygulama sorusu ve çözümü hazırlanmıştır.
 ### Consumer
 
 - Requirement'lar: `docs/consumer-requirements.md`
-- Çözüm dosyası henüz oluşturulmadı.
+- Örnek çözümler: `docs/consumer-solutions.md`
+
+### Özel functional interface ve lambda
+
+- Requirement'lar: `docs/lambda-custom-interface-requirements.md`
+- Örnek çözümler: `docs/lambda-custom-interface-solutions.md`
+
+### Method reference
+
+- Requirement'lar: `docs/method-reference-requirements.md`
+- Örnek çözümler: `docs/method-reference-solutions.md`
 
 ### Collections
 
 - Hızlı oluşturma ve kullanım rehberi:
   `docs/java-collections-quick-reference.md`
+- Comparable ve Comparator hatırlatma rehberi:
+  `docs/comparable-comparator-guide.md`
+- Comparator alıştırmaları: `docs/comparator-requirements.md`
+- Comparator örnek çözümleri: `docs/comparator-solutions.md`
+
+Map syntax'ını tekrar etmek için `org.practice.javacore.mapexamples` paketinde
+üç açıklamalı demo ve bir Product POJO'su bulunur:
+
+- `BasicMapOperationsDemo`: `put`, `get`, `getOrDefault`, `containsKey`,
+  `containsValue`, `putIfAbsent`, `replace`, `computeIfPresent` ve `remove`
+- `MapTraversalDemo`: `keySet`, `values`, `entrySet`, `getKey`, `getValue` ve
+  `Map.forEach`
+- `ProductMapExamples`: `Map<Integer, Product>` ve
+  `Map<Integer, List<Product>>`, ayrıca `computeIfAbsent`
+
+Map alıştırmaları:
+
+- Requirement'lar: `docs/map-requirements.md`
+- Örnek çözümler: `docs/map-solutions.md`
 
 ### Toplu functional interface özeti
 
@@ -234,10 +321,21 @@ karışık uygulama sorusu ve çözümü hazırlanmıştır.
 
 ### Stream alıştırmaları
 
+- Person ve Product kapsamlı örnek rehberi:
+  `docs/comprehensive-stream-examples-guide.md`
+- Stream oluşturma, pipeline ve tek kullanım:
+  `docs/stream-basics-requirements.md`,
+  `docs/stream-basics-solutions.md`
+- Iterate ve generate: `docs/stream-iterate-generate-requirements.md`,
+  `docs/stream-iterate-generate-solutions.md`
 - Filter: `docs/stream-filter-requirements.md`,
   `docs/stream-filter-solutions.md`
+- Map: `docs/stream-map-requirements.md`,
+  `docs/stream-map-solutions.md`
 - FlatMap: `docs/stream-flatmap-requirements.md`,
   `docs/stream-flatmap-solutions.md`
+- ForEach ve Consumer: `docs/stream-foreach-requirements.md`,
+  `docs/stream-foreach-solutions.md`
 - Limit: `docs/stream-limit-requirements.md`,
   `docs/stream-limit-solutions.md`
 - Skip: `docs/stream-skip-requirements.md`,
@@ -246,6 +344,12 @@ karışık uygulama sorusu ve çözümü hazırlanmıştır.
   `docs/stream-reduce-solutions.md`
 - Collect: `docs/stream-collect-requirements.md`,
   `docs/stream-collect-solutions.md`
+- CollectingAndThen: `docs/stream-collecting-and-then-requirements.md`,
+  `docs/stream-collecting-and-then-solutions.md`
+- GroupingBy: `docs/stream-groupingby-requirements.md`,
+  `docs/stream-groupingby-solutions.md`
+- PartitioningBy: `docs/stream-partitioningby-requirements.md`,
+  `docs/stream-partitioningby-solutions.md`
 - Count: `docs/stream-count-requirements.md`,
   `docs/stream-count-solutions.md`
 - 20 karışık Stream pipeline sorusu: `docs/stream-mixed-requirements.md`,
@@ -264,7 +368,8 @@ karışık uygulama sorusu ve çözümü hazırlanmıştır.
 
 ## Sonraki muhtemel adımlar
 
-1. Stream requirement'larını öğrencinin seçtiği konudan başlayarak çözmek
+1. Functional interface, Map, Comparator veya Stream requirement'larını
+   öğrencinin seçtiği konudan başlayarak çözmek
 2. Her çözümde pipeline sırasını, intermediate/terminal ayrımını ve kullanılan
    functional interface'i açıklamak
 3. Konu bazlı sorulardan sonra karışık Stream pipeline sorularına geçmek

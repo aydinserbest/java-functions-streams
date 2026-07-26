@@ -11,9 +11,9 @@ numaralarını tek bir `List<String>` olarak üret.
 
 ### Business açısından burada ne yapılıyor?
 
-Çağrı merkezi müşteri kartlarıyla değil, aranacak düz telefon listesiyle çalışır.
-Her müşterinin sıfır, bir veya birden fazla telefonu olabilir; iç listeler tek
-arama kuyruğunda birleştirilir.
+Çağrı merkezi müşteri kartlarıyla değil, aranacak düz telefon listesiyle
+çalışır. Her müşterinin sıfır, bir veya birden fazla telefonu olabilir; iç
+listeler tek arama kuyruğunda birleştirilir.
 
 ## 2. Siparişlerdeki bütün ürünleri sevkiyat listesine alma
 
@@ -33,8 +33,8 @@ String email)` modellerinden bütün e-postaları tek listeye çıkar.
 
 ### Business açısından burada ne yapılıyor?
 
-İnsan kaynakları şirket çapında duyuru gönderecektir. Çalışanlar departman altında
-gruplu saklansa da e-posta servisi düz bir alıcı listesi bekler.
+İnsan kaynakları şirket çapında duyuru gönderecektir. Çalışanlar departman
+altında gruplu saklansa da e-posta servisi düz bir alıcı listesi bekler.
 
 ## 4. Cümlelerden benzersiz kelime indeksi oluşturma
 
@@ -44,7 +44,8 @@ ve tek bir benzersiz kelime kümesinde topla.
 ### Business açısından burada ne yapılıyor?
 
 Arama servisi dokümanları hızlı bulmak için cümlelerden kelime indeksi çıkarır.
-Her cümleden bir kelime dizisi oluşur; diziler tek kelime akışında düzleştirilir.
+Her cümleden bir kelime dizisi oluşur; diziler tek kelime akışında
+düzleştirilir.
 
 ## 5. Öğrencilerin aldığı dersleri raporlama
 
@@ -81,9 +82,9 @@ yerleşiminden bağımsız olarak sistemde bulunan benzersiz ürün kodlarını 
 
 ## 8. Kullanıcı rollerinden izin listesi üretme
 
-`User(String username, List<Role> roles)` ve `Role(String name,
-List<String> permissions)` modelleri oluştur. Belirli bir kullanıcının bütün
-rollerindeki izinleri düzleştirip benzersiz liste üret.
+`User(String username, List<Role> roles)` ve `Role(String name, List<String>
+permissions)` modelleri oluştur. Belirli bir kullanıcının bütün rollerindeki
+izinleri düzleştirip benzersiz liste üret.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -93,13 +94,14 @@ yalnızca bir kez tutulur.
 
 ## 9. API sayfalarındaki sonuçları birleştirme
 
-`Page(int number, List<Product> content)` listesinden bütün `content` listelerini
-tek ürün listesine dönüştür. Boş sayfalar hata oluşturmamalıdır.
+`Page(int number, List<Product> content)` listesinden bütün `content`
+listelerini tek ürün listesine dönüştür. Boş sayfalar hata oluşturmamalıdır.
 
 ### Business açısından burada ne yapılıyor?
 
 Dış servis sonuçları sayfalı döndürür, fakat dışa aktarma işlemi bütün ürünleri
-tek dosyaya yazacaktır. Sayfa katmanı kaldırılarak birleşik veri kümesi hazırlanır.
+tek dosyaya yazacaktır. Sayfa katmanı kaldırılarak birleşik veri kümesi
+hazırlanır.
 
 ## 10. Kategoriler altındaki alt kategorileri iki seviyede açma
 
@@ -112,4 +114,3 @@ iki seviye işlenecektir.
 Menü yönetim ekranı iki alt seviyedeki kategorileri toplu seçicide göstermek
 ister. Her seviye yeni bir iç liste ürettiği için iki ayrı `flatMap()` adımıyla
 hiyerarşinin istenen kısmı düzleştirilir.
-

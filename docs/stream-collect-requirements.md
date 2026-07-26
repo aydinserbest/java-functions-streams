@@ -11,8 +11,8 @@ eklenebildiğini göster.
 
 ### Business açısından burada ne yapılıyor?
 
-Katalog editörü filtrelenmiş çalışma listesini sonradan elle genişletecektir.
-Bu yüzden yalnızca sonuçları toplamak değil, özellikle değiştirilebilir bir
+Katalog editörü filtrelenmiş çalışma listesini sonradan elle genişletecektir. Bu
+yüzden yalnızca sonuçları toplamak değil, özellikle değiştirilebilir bir
 `ArrayList` istemek business ihtiyacıdır.
 
 ## 2. Kampanya şehirlerini benzersiz kümeye alma
@@ -64,13 +64,13 @@ tutan merge function yaz.
 
 ### Business açısından burada ne yapılıyor?
 
-Birden fazla kaynaktan gelen kullanıcı verileri çakışabilir. Sistem sessizce hata
-vermek yerine açık bir business kuralıyla en güncel kaydı korur.
+Birden fazla kaynaktan gelen kullanıcı verileri çakışabilir. Sistem sessizce
+hata vermek yerine açık bir business kuralıyla en güncel kaydı korur.
 
 ## 7. Fatura numaralarını okunabilir metinde birleştirme
 
-Fatura numaralarını `Collectors.joining(", ", "[", "]")` ile
-`[INV-1001, INV-1002]` biçiminde birleştir.
+Fatura numaralarını `Collectors.joining(", ", "[", "]")` ile `[INV-1001,
+INV-1002]` biçiminde birleştir.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -108,4 +108,3 @@ tekrar eden ve karışık sırada ID'ler bulunsun.
 
 Denetim raporu aynı sipariş numarasını tekrar göstermemeli ve numaraları doğal
 sırada sunmalıdır. İstenen sonuç yapısı açıkça `TreeSet` olarak seçilir.
-

@@ -82,7 +82,8 @@ operasyon loguna yazabilir. Sistemin kuralı şudur:
 - Her numara için bir log satırı üretilmeli.
 - Sipariş numaraları değiştirilmemeli ve yeni bir liste oluşturulmamalı.
 
-`forEach()` her eleman için Consumer'ın `accept()` metodunu arka planda çalıştırır.
+`forEach()` her eleman için Consumer'ın `accept()` metodunu arka planda
+çalıştırır.
 
 ## 3. Kampanya e-postası gönderme simülasyonu
 
@@ -103,8 +104,8 @@ En az üç müşteriden oluşan listeyi `forEach()` ile işle.
 ### Business açısından burada ne yapılıyor?
 
 Pazarlama ekibi kampanyaya dahil edilmiş müşterilere toplu e-posta göndermek
-isteyebilir. Bu alıştırmada gerçek e-posta servisi yerine ekrana mesaj yazdırılır.
-Gerçek sistemdeki akış şöyledir:
+isteyebilir. Bu alıştırmada gerçek e-posta servisi yerine ekrana mesaj
+yazdırılır. Gerçek sistemdeki akış şöyledir:
 
 ```text
 Müşteri listesi
@@ -128,8 +129,8 @@ Değiştirilebilir şu sınıfı oluştur:
 Product(String name, int stock)
 ```
 
-`stock` alanı için getter ve setter ekle. Bir ürün satıldığında stok miktarını bir
-azaltan `Consumer<Product>` tanımla.
+`stock` alanı için getter ve setter ekle. Bir ürün satıldığında stok miktarını
+bir azaltan `Consumer<Product>` tanımla.
 
 Kurallar:
 
@@ -188,8 +189,8 @@ kullanıcıya anlaşılır satırlar göstermek ister. Her satır için sistem:
 - Adet ve birim fiyatı göstermeli.
 - `quantity * unitPrice` ile satır toplamını hesaplayıp yazmalı.
 
-Bu alıştırmada satır toplamları yeni bir listeye dönüştürülmüyor; hesaplanan değer
-doğrudan çıktı işleminde kullanılıyor. Bu yüzden Consumer uygundur.
+Bu alıştırmada satır toplamları yeni bir listeye dönüştürülmüyor; hesaplanan
+değer doğrudan çıktı işleminde kullanılıyor. Bu yüzden Consumer uygundur.
 
 ## 6. Genel işlem çalıştırma metodu
 
@@ -241,10 +242,10 @@ Order(long id, String customerEmail)
 
 - `saveOrder`: `"Sipariş kaydedildi: 1001"` mesajını yazdırsın.
 - `sendConfirmation`: `"Onay e-postası gönderildi: alice@example.com"` mesajını
-  yazdırsın.
+yazdırsın.
 
-İki Consumer'ı `andThen()` ile birleştir ve tek `accept(order)` çağrısıyla sırayla
-çalıştır.
+İki Consumer'ı `andThen()` ile birleştir ve tek `accept(order)` çağrısıyla
+sırayla çalıştır.
 
 Beklenen işlem sırası:
 
@@ -303,8 +304,8 @@ kayıt altına alınmalıdır. Örneğin yönetici bir ürünü sildiğinde sist
 - Bu bilgileri denetim günlüğüne yazmalı.
 
 Consumer bu örnekte geri değer üretmez; denetlenebilirlik için log yan etkisini
-gerçekleştirir. Gerçek projede `System.out` yerine bir logging veya audit servisi
-kullanılabilir.
+gerçekleştirir. Gerçek projede `System.out` yerine bir logging veya audit
+servisi kullanılabilir.
 
 ## 9. Method reference ile bildirim kuyruğuna ekleme
 
@@ -335,9 +336,9 @@ Siparişiniz teslim edildi.
 
 ### Business açısından burada ne yapılıyor?
 
-Sipariş yaşam döngüsündeki olaylar müşteriye bildirim olarak iletilebilir. Servisin
-zaten `String alıp void döndüren` uygun bir metodu varsa aynı davranışı lambda ile
-tekrar yazmak gerekmez.
+Sipariş yaşam döngüsündeki olaylar müşteriye bildirim olarak iletilebilir.
+Servisin zaten `String alıp void döndüren` uygun bir metodu varsa aynı davranışı
+lambda ile tekrar yazmak gerekmez.
 
 Sistemin akışı şudur:
 
@@ -396,4 +397,3 @@ Sistemin kuralları şunlardır:
 
 Bu soru Predicate'in seçim, Consumer'ın ise seçilmiş veriler üzerinde işlem
 yapma sorumluluğunu birlikte gösterir.
-

@@ -6,14 +6,14 @@ pipeline sonrasında kalanların sayısı isteniyorsa `count()` tercih edilir.
 
 ## 1. Aktif kullanıcı sayısını panelde gösterme
 
-`User(String username, boolean active)` listesinden aktif kullanıcıların sayısını
-hesapla.
+`User(String username, boolean active)` listesinden aktif kullanıcıların
+sayısını hesapla.
 
 ### Business açısından burada ne yapılıyor?
 
 Yönetim panelindeki gösterge bütün kayıtların değil, şu an hizmete erişebilen
-hesapların adedini gösterir. Önce business koşulu uygulanır, sonra kalan kayıtlar
-sayılır.
+hesapların adedini gösterir. Önce business koşulu uygulanır, sonra kalan
+kayıtlar sayılır.
 
 ## 2. Stoku tükenen ürün sayısını bulma
 
@@ -32,8 +32,8 @@ siparişlerin sayısını bul. `LocalDate today` dışarıdan verilsin.
 
 ### Business açısından burada ne yapılıyor?
 
-Operasyon ekranı günün sipariş hacmini gösterir. Saat bilgisi farklı olsa da aynı
-takvim günündeki kayıtlar birlikte sayılır.
+Operasyon ekranı günün sipariş hacmini gösterir. Saat bilgisi farklı olsa da
+aynı takvim günündeki kayıtlar birlikte sayılır.
 
 ## 4. Belirli şehirdeki premium müşterileri sayma
 
@@ -47,13 +47,14 @@ koşulu sağlamayan müşteriler sayıya katılmaz.
 
 ## 5. Siparişlerdeki toplam satır sayısını bulma
 
-`Order(long id, List<OrderLine> lines)` listesindeki iç listeleri `flatMap()` ile
-aç ve toplam sipariş satırı sayısını `count()` ile bul.
+`Order(long id, List<OrderLine> lines)` listesindeki iç listeleri `flatMap()`
+ile aç ve toplam sipariş satırı sayısını `count()` ile bul.
 
 ### Business açısından burada ne yapılıyor?
 
 Depo iş yükü yalnızca sipariş adediyle ölçülmez; her sipariş birden fazla
-hazırlama satırı içerebilir. İç listeler düzleştirilip gerçek satır hacmi sayılır.
+hazırlama satırı içerebilir. İç listeler düzleştirilip gerçek satır hacmi
+sayılır.
 
 ## 6. Benzersiz ziyaretçi sayısını hesaplama
 
@@ -106,4 +107,3 @@ Bir ürün listesinin toplam kayıt sayısını hem `products.size()` hem
 Katalog toplamı doğrudan koleksiyonun bildiği bir bilgidir. Pahalı ürün metriği
 ise business filtresinden sonra oluşur; bu nedenle Stream pipeline'ının sonunda
 sayılır.
-

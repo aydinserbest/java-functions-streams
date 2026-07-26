@@ -20,8 +20,9 @@ beş ürünü al.
 
 ### Business açısından burada ne yapılıyor?
 
-Premium ürün vitrini katalog sırasına değil fiyata göre belirlenir. Önce business
-önceliği oluşturulur, ardından ekran kapasitesi beş ürünle sınırlandırılır.
+Premium ürün vitrini katalog sırasına değil fiyata göre belirlenir. Önce
+business önceliği oluşturulur, ardından ekran kapasitesi beş ürünle
+sınırlandırılır.
 
 ## 3. Arama önerilerini sekiz sonuçla sınırlama
 
@@ -31,7 +32,8 @@ Arama metni metoda parametre olmalıdır.
 ### Business açısından burada ne yapılıyor?
 
 Kullanıcı yazarken açılan öneri kutusu yüzlerce sonuç göstermemelidir. Önce
-eşleşen kayıtlar bulunur, sonra arayüzün taşıyabileceği ilk sekiz öneri gönderilir.
+eşleşen kayıtlar bulunur, sonra arayüzün taşıyabileceği ilk sekiz öneri
+gönderilir.
 
 ## 4. Bekleyen ilk on desteği işleme alma
 
@@ -51,9 +53,9 @@ iletişim izni olan ilk 100 müşteriyi al.
 
 ### Business açısından burada ne yapılıyor?
 
-Pazarlama ekibi kampanyayı önce küçük bir kontrollü grupta denemek ister. Yalnızca
-yasal iletişim izni ve aktif hesabı olan müşteriler adaydır; gönderim hacmi 100
-kişiyle sınırlandırılır.
+Pazarlama ekibi kampanyayı önce küçük bir kontrollü grupta denemek ister.
+Yalnızca yasal iletişim izni ve aktif hesabı olan müşteriler adaydır; gönderim
+hacmi 100 kişiyle sınırlandırılır.
 
 ## 6. Sonsuz seri üretimini güvenli biçimde durdurma
 
@@ -108,6 +110,5 @@ listeleriyle dene.
 ### Business açısından burada ne yapılıyor?
 
 Farklı ekran bileşenleri aynı “en fazla N kayıt göster” algoritmasını kullanır.
-Metot eleman tipini veya ekranın amacını bilmeden yalnızca görüntülenecek miktarı
-sınırlar.
-
+Metot eleman tipini veya ekranın amacını bilmeden yalnızca görüntülenecek
+miktarı sınırlar.

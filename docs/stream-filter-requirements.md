@@ -8,8 +8,8 @@ değişmemeli; sonuç yeni bir listeye alınmalıdır.
 
 `Product(String name, boolean active, int stock)` modeliyle en az beş ürün
 oluştur. Katalog ekranı için yalnızca `active=true` ve `stock>0` olan ürünleri
-filtrele. Örnek olarak aktif ve stoklu `Mouse` sonuçta bulunmalı; pasif `Monitor`
-ve stoku sıfır `Keyboard` bulunmamalıdır.
+filtrele. Örnek olarak aktif ve stoklu `Mouse` sonuçta bulunmalı; pasif
+`Monitor` ve stoku sıfır `Keyboard` bulunmamalıdır.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -37,9 +37,9 @@ Filtre sonucundaki faturalar müşteriye hatırlatma gönderilecek adaylardır.
 
 ### Business açısından burada ne yapılıyor?
 
-Depo, ödeme tamamlanmadan veya teslimat adresi doğrulanmadan paket hazırlamamalı.
-Filtre iki operasyonel güvenlik kuralını uygular; başarısız kayıtları silmez,
-yalnızca sevkiyat kuyruğuna girerken dışarıda bırakır.
+Depo, ödeme tamamlanmadan veya teslimat adresi doğrulanmadan paket
+hazırlamamalı. Filtre iki operasyonel güvenlik kuralını uygular; başarısız
+kayıtları silmez, yalnızca sevkiyat kuyruğuna girerken dışarıda bırakır.
 
 ## 4. Yaş ve şehir kuralına uyan etkinlik katılımcıları
 
@@ -48,14 +48,14 @@ ve Amsterdam'da yaşayan kişileri seç. Beklenen sonucu isimleriyle yazdır.
 
 ### Business açısından burada ne yapılıyor?
 
-Amsterdam'da düzenlenen yetişkinlere özel bir etkinliğin kayıt sistemi,
-şehir dışındaki veya yaş sınırını karşılamayan başvuruları bu etkinliğin katılımcı
+Amsterdam'da düzenlenen yetişkinlere özel bir etkinliğin kayıt sistemi, şehir
+dışındaki veya yaş sınırını karşılamayan başvuruları bu etkinliğin katılımcı
 listesine dahil etmez. Kişilerin ana kayıtları değişmeden kalır.
 
 ## 5. Geçerli e-posta adreslerini kampanya listesine alma
 
-Bir `List<String>` içinden `null` olmayan, boş olmayan, boşluk içermeyen ve
-`@` işaretine sahip e-posta adreslerini filtrele. Predicate null-safe olmalıdır.
+Bir `List<String>` içinden `null` olmayan, boş olmayan, boşluk içermeyen ve `@`
+işaretine sahip e-posta adreslerini filtrele. Predicate null-safe olmalıdır.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -107,8 +107,8 @@ birleştir.
 
 ### Business açısından burada ne yapılıyor?
 
-Moderasyon ekibi iki nedenle inceleme yapar: yorum henüz hiç onaylanmamıştır veya
-şikâyet sistemi tarafından riskli işaretlenmiştir. Bu koşullardan birinin
+Moderasyon ekibi iki nedenle inceleme yapar: yorum henüz hiç onaylanmamıştır
+veya şikâyet sistemi tarafından riskli işaretlenmiştir. Bu koşullardan birinin
 sağlanması inceleme kuyruğuna girmek için yeterlidir.
 
 ## 10. Tekrar kullanılabilir müşteri araması
@@ -128,4 +128,3 @@ eurodan yüksek premium müşterileri ayrı ayrı bul.
 CRM ekranında filtre seçenekleri değişse de listeyi dolaşma algoritması aynıdır.
 Arama metodu business kuralını bilmez; kullanıcı ekranında seçilen kriter
 `Predicate<Customer>` olarak dışarıdan verilir.
-

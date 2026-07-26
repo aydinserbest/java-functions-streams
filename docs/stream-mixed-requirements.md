@@ -14,19 +14,20 @@ azalan sırala, ilk dört ürünü `"Ürün - €fiyat"` etiketine dönüştür 
 
 Müşteri yalnızca satın alınabilir premium ürünleri görmelidir. Önce uygunluk
 kuralları uygulanır, sonra premium sırası kurulur ve sınırlı vitrin alanı dört
-ürünle doldurulur. `limit` filtre öncesinde olursa dört uygun ürün garantilenmez.
+ürünle doldurulur. `limit` filtre öncesinde olursa dört uygun ürün
+garantilenmez.
 
 ## 2. Sevkiyat için toplam ürün adedi
 
 `Order(long id, String status, List<OrderLine> lines)` ve `OrderLine(String sku,
-int quantity)` modelleriyle yalnızca `PAID` siparişlerin satırlarını düzleştir ve
-toplam ürün adedini hesapla.
+int quantity)` modelleriyle yalnızca `PAID` siparişlerin satırlarını düzleştir
+ve toplam ürün adedini hesapla.
 
 ### Business açısından burada ne yapılıyor?
 
 Depo henüz ödenmemiş siparişleri hazırlamaz. Siparişler seçildikten sonra satır
-katmanı açılır; satır sayısı değil, quantity alanlarının toplamı gerçek paketleme
-hacmini verir.
+katmanı açılır; satır sayısı değil, quantity alanlarının toplamı gerçek
+paketleme hacmini verir.
 
 ## 3. Departman bazında aktif çalışan sayısı
 
@@ -36,9 +37,9 @@ departman bilgisini kaybetmeden departman başına sayıyı `Map<String,Long>` �
 
 ### Business açısından burada ne yapılıyor?
 
-Yönetim organizasyonun aktif kadrosunu departman bazında görmek ister. Düzleştirme
-sırasında departman adı da sonuç kaydına taşınmalıdır; aksi halde gruplama anahtarı
-kaybolur.
+Yönetim organizasyonun aktif kadrosunu departman bazında görmek ister.
+Düzleştirme sırasında departman adı da sonuç kaydına taşınmalıdır; aksi halde
+gruplama anahtarı kaybolur.
 
 ## 4. Üçüncü sayfadaki arama sonuçları
 
@@ -60,9 +61,9 @@ gelire göre azalan sırala ve ilk üç kategori sonucunu üret.
 
 ### Business açısından burada ne yapılıyor?
 
-Satış yönetimi brüt işlem sayısını değil, iade dışındaki gerçek kategori gelirini
-karşılaştırır. Satır geliri `quantity * unitPrice` olarak hesaplanır, kategori
-altında toplanır ve lider üç kategori raporlanır.
+Satış yönetimi brüt işlem sayısını değil, iade dışındaki gerçek kategori
+gelirini karşılaştırır. Satır geliri `quantity * unitPrice` olarak hesaplanır,
+kategori altında toplanır ve lider üç kategori raporlanır.
 
 ## 6. Kampanya için benzersiz e-posta örneği
 
@@ -73,8 +74,8 @@ kaldır ve ilk 100 adresi değiştirilebilir listeye topla.
 ### Business açısından burada ne yapılıyor?
 
 Gönderim servisi pasif veya izinsiz müşterilere ulaşmamalı, aynı adresi farklı
-yazımlarla iki kez hedeflememelidir. Pilot kampanya en fazla 100 benzersiz alıcıya
-gider ve liste gönderim öncesi düzenlenebilir.
+yazımlarla iki kez hedeflememelidir. Pilot kampanya en fazla 100 benzersiz
+alıcıya gider ve liste gönderim öncesi düzenlenebilir.
 
 ## 7. Ürün değerlendirme özeti
 
@@ -91,13 +92,14 @@ yoksa ortalama `0.0` olur.
 ## 8. Yedek teslimat seçenekleri
 
 `DeliveryOption(String company, double price, int days, boolean available)`
-listesinden mevcut seçenekleri önce gün, sonra fiyat sırasına koy. En iyi seçeneği
-atla ve sonraki iki alternatifi listele.
+listesinden mevcut seçenekleri önce gün, sonra fiyat sırasına koy. En iyi
+seçeneği atla ve sonraki iki alternatifi listele.
 
 ### Business açısından burada ne yapılıyor?
 
 Ödeme ekranında en iyi teslimat seçeneği ana seçim olarak ayrıca gösterilir.
-Alternatifler kartında aynı kayıt tekrarlanmaz; sıradaki iki uygun seçenek sunulur.
+Alternatifler kartında aynı kayıt tekrarlanmaz; sıradaki iki uygun seçenek
+sunulur.
 
 ## 9. Proje panosundaki acil görevler
 
@@ -108,26 +110,26 @@ azalan sırala ve ilk beşini `"Proje: görev"` biçiminde göster.
 ### Business açısından burada ne yapılıyor?
 
 Yönetici proje sınırlarından bağımsız en acil açık işleri görmek ister. Görev
-düzleştirilirken hangi projeye ait olduğu korunmalı; çıktı aksiyon alınabilir bir
-etiket taşımalıdır.
+düzleştirilirken hangi projeye ait olduğu korunmalı; çıktı aksiyon alınabilir
+bir etiket taşımalıdır.
 
 ## 10. Banka hareketlerinde riskli toplam
 
-`Account(String iban, List<Transaction> transactions)` ve
-`Transaction(double amount, String country, boolean successful)` verisinden
-başarılı, ülke dışı ve 1000 euro üzerindeki hareketleri düzleştir. Adetlerini ve
-toplam tutarlarını hesapla.
+`Account(String iban, List<Transaction> transactions)` ve `Transaction(double
+amount, String country, boolean successful)` verisinden başarılı, ülke dışı ve
+1000 euro üzerindeki hareketleri düzleştir. Adetlerini ve toplam tutarlarını
+hesapla.
 
 ### Business açısından burada ne yapılıyor?
 
-Risk motoru bütün hareketleri şüpheli saymaz. Üç koşulu karşılayan işlemlerin hem
-olay adedi hem parasal etkisi denetim panelinde gösterilir.
+Risk motoru bütün hareketleri şüpheli saymaz. Üç koşulu karşılayan işlemlerin
+hem olay adedi hem parasal etkisi denetim panelinde gösterilir.
 
 ## 11. İkinci parti eski açık destek kayıtları
 
 `Ticket(long id, String status, LocalDateTime createdAt)` listesinden açık
-kayıtları eskiden yeniye sırala. İlk çalışma partisindeki 20 kaydı atlayıp sonraki
-20 kaydı al.
+kayıtları eskiden yeniye sırala. İlk çalışma partisindeki 20 kaydı atlayıp
+sonraki 20 kaydı al.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -153,19 +155,21 @@ faturaları seç ve müşteri başına toplam borcu `Map<String,Double>` olarak 
 
 ### Business açısından burada ne yapılıyor?
 
-Tahsilat ekibi tek tek faturalardan önce müşterinin toplam riskini görür. Ödenmiş
-kayıtlar borca dahil edilmez; aynı müşterinin açık faturaları birleştirilir.
+Tahsilat ekibi tek tek faturalardan önce müşterinin toplam riskini görür.
+Ödenmiş kayıtlar borca dahil edilmez; aynı müşterinin açık faturaları
+birleştirilir.
 
 ## 14. Son beş benzersiz arama
 
-`SearchEvent(String userId, String query, LocalDateTime time)` listesinden belirli
-kullanıcının olaylarını yeniden eskiye sırala, sorgu metnini normalize et ve en
-son beş benzersiz sorguyu al.
+`SearchEvent(String userId, String query, LocalDateTime time)` listesinden
+belirli kullanıcının olaylarını yeniden eskiye sırala, sorgu metnini normalize
+et ve en son beş benzersiz sorguyu al.
 
 ### Business açısından burada ne yapılıyor?
 
 Arama kutusu kullanıcının yakın geçmişini gösterir. Aynı sorgunun tekrarları
-alanı doldurmamalı; en yeni tekrarın sırası korunarak beş farklı öneri sunulmalıdır.
+alanı doldurmamalı; en yeni tekrarın sırası korunarak beş farklı öneri
+sunulmalıdır.
 
 ## 15. Şubelere göre benzersiz ürün sayısı
 
@@ -182,8 +186,8 @@ sayılır.
 
 `Employee(String name, double monthlySalary, boolean active)` listesindeki aktif
 çalışanları maaşa göre azalan sırala; en yüksek iki yöneticiyi ayrı raporda
-oldukları için atla. Sonraki beş çalışanın adını ve yıllık maaşını listele, bu beş
-maaşın toplamını da hesapla.
+oldukları için atla. Sonraki beş çalışanın adını ve yıllık maaşını listele, bu
+beş maaşın toplamını da hesapla.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -195,8 +199,8 @@ kaynak olmalıdır.
 
 `Event(String name, boolean published, List<Participant> participants)` ve
 `Participant(String name, String country, boolean approved)` modellerinden
-yalnızca yayınlanmış etkinliklerin onaylı katılımcılarını düzleştir ve ülke başına
-katılımcı sayısını üret.
+yalnızca yayınlanmış etkinliklerin onaylı katılımcılarını düzleştir ve ülke
+başına katılımcı sayısını üret.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -206,8 +210,8 @@ Organizatör tek tek kayıt yerine uluslararası katılım dağılımını görm
 ## 18. Restoran menüsünde ekonomik seçenekler
 
 `MenuCategory(String name, List<Dish> dishes)` listesinden mevcut ve 20 euro
-altındaki yemekleri düzleştir, fiyata göre sırala, ilk üçü atla ve sonraki beşini
-listele.
+altındaki yemekleri düzleştir, fiyata göre sırala, ilk üçü atla ve sonraki
+beşini listele.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -217,15 +221,15 @@ yemeği kullanır.
 
 ## 19. Log hata kodu özeti
 
-`LogBatch(LocalDate date, List<LogEntry> entries)` ve
-`LogEntry(String level, String code)` verisinden bugünkü `ERROR` kayıtlarını
-düzleştir; hata kodu başına adet üret ve en sık ilk üç kodu bul.
+`LogBatch(LocalDate date, List<LogEntry> entries)` ve `LogEntry(String level,
+String code)` verisinden bugünkü `ERROR` kayıtlarını düzleştir; hata kodu başına
+adet üret ve en sık ilk üç kodu bul.
 
 ### Business açısından burada ne yapılıyor?
 
-Operasyon ekibi ham log satırları yerine bugünün baskın hata türlerini önceliklendirir.
-Önce doğru gün ve seviye seçilir, sonra kodlar sayılır ve en yüksek üç problem
-çıkarılır.
+Operasyon ekibi ham log satırları yerine bugünün baskın hata türlerini
+önceliklendirir. Önce doğru gün ve seviye seçilir, sonra kodlar sayılır ve en
+yüksek üç problem çıkarılır.
 
 ## 20. Sipariş yönetim dashboard'u
 
@@ -236,5 +240,5 @@ adedi, durum başına sayı ve en yüksek tutarlı üç siparişi üret.
 ### Business açısından burada ne yapılıyor?
 
 Dashboard aynı güvenilir sipariş kümesinden birkaç KPI üretir. İptal kayıtların
-bir metrikten çıkarılıp diğerine yanlışlıkla dahil edilmemesi için ortak business
-seçimi açıkça tanımlanmalıdır.
+bir metrikten çıkarılıp diğerine yanlışlıkla dahil edilmemesi için ortak
+business seçimi açıkça tanımlanmalıdır.

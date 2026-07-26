@@ -7,8 +7,8 @@ dönüştüren terminal işlemdir.
 ## 1. Siparişin toplam tutarını hesaplama
 
 `OrderLine(String product, int quantity, double unitPrice)` listesindeki her
-satırı `quantity * unitPrice` tutarına dönüştür ve `reduce(0.0, Double::sum)` ile
-sipariş toplamını bul.
+satırı `quantity * unitPrice` tutarına dönüştür ve `reduce(0.0, Double::sum)`
+ile sipariş toplamını bul.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -49,13 +49,14 @@ kazanan üretmek yerine “teklif yok” durumu ayrıca temsil edilmelidir.
 ## 5. En düşük teslimat süresini bulma
 
 `DeliveryOption(String company, int estimatedDays)` listesinden en düşük gün
-sayısını `mapToInt().min()` ile bul ve şirket bilgisi gerekmiyorsa neden yalnızca
-sayısal değere dönüştürdüğünü açıkla.
+sayısını `mapToInt().min()` ile bul ve şirket bilgisi gerekmiyorsa neden
+yalnızca sayısal değere dönüştürdüğünü açıkla.
 
 ### Business açısından burada ne yapılıyor?
 
-Ödeme ekranındaki özet yalnızca “en erken 2 günde teslimat” bilgisini gösterecekse
-tam şirket nesnesine ihtiyaç duymaz. Kayıt yoksa sonuç bulunmayabilir.
+Ödeme ekranındaki özet yalnızca “en erken 2 günde teslimat” bilgisini
+gösterecekse tam şirket nesnesine ihtiyaç duymaz. Kayıt yoksa sonuç
+bulunmayabilir.
 
 ## 6. Müşteri puan ortalamasını hesaplama
 
@@ -70,8 +71,8 @@ kullanılır.
 
 ## 7. Maaş istatistiklerini tek geçişte çıkarma
 
-`Employee(String name, int salary)` listesinden `IntSummaryStatistics` kullanarak
-çalışan sayısı, toplam, minimum, maksimum ve ortalama maaşı üret.
+`Employee(String name, int salary)` listesinden `IntSummaryStatistics`
+kullanarak çalışan sayısı, toplam, minimum, maksimum ve ortalama maaşı üret.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -80,10 +81,10 @@ Tek terminal işlemle özet göstergeler hazırlanır.
 
 ## 8. İndirimleri sırayla tek fiyata uygulama
 
-Başlangıç fiyatı `200.0` ve indirim oranları `[0.10, 0.20]` olsun. Identity olarak
-`1.0` kullanarak oranları kalan fiyat çarpanlarına (`0.90`, `0.80`) dönüştür ve
-bu çarpanları `reduce` ile birleştir. Birleşik çarpanı başlangıç fiyatıyla çarp.
-Beklenen sonuç `144.0` olmalıdır.
+Başlangıç fiyatı `200.0` ve indirim oranları `[0.10, 0.20]` olsun. Identity
+olarak `1.0` kullanarak oranları kalan fiyat çarpanlarına (`0.90`, `0.80`)
+dönüştür ve bu çarpanları `reduce` ile birleştir. Birleşik çarpanı başlangıç
+fiyatıyla çarp. Beklenen sonuç `144.0` olmalıdır.
 
 ### Business açısından burada ne yapılıyor?
 
@@ -93,15 +94,15 @@ sözleşmesine de uygun, associative bir indirgeme kullanmalıdır.
 
 ## 9. Etiketleri tek metinde birleştirme
 
-`["java", "stream", "api"]` değerlerini `reduce()` kullanarak
-`"java, stream, api"` metnine dönüştür. Baştaki gereksiz virgülü engelle ve boş
-liste davranışını açıkla.
+`["java", "stream", "api"]` değerlerini `reduce()` kullanarak `"java, stream,
+api"` metnine dönüştür. Baştaki gereksiz virgülü engelle ve boş liste
+davranışını açıkla.
 
 ### Business açısından burada ne yapılıyor?
 
-İçerik yönetim sistemi etiketleri ayrı kayıtlar halinde tutar, fakat dışa aktarma
-dosyasında tek bir okunabilir alan ister. Ayraç yalnızca elemanlar arasına
-gelmelidir.
+İçerik yönetim sistemi etiketleri ayrı kayıtlar halinde tutar, fakat dışa
+aktarma dosyasında tek bir okunabilir alan ister. Ayraç yalnızca elemanlar
+arasına gelmelidir.
 
 ## 10. Genel toplama davranışı çalıştırma
 

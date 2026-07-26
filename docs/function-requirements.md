@@ -32,8 +32,8 @@ Kurallar:
 
 ### Business açısından burada ne yapılıyor?
 
-Bir CRM sistemine müşteri adları farklı biçimlerde girilebilir. Bir kullanıcı
-`" alice smith "`, diğeri `"Alice Smith"` yazabilir. Raporlama, arama veya başka
+Bir CRM sistemine müşteri adları farklı biçimlerde girilebilir. Bir kullanıcı `"
+alice smith "`, diğeri `"Alice Smith"` yazabilir. Raporlama, arama veya başka
 bir sisteme veri aktarımı öncesinde bu değerlerin tek bir biçime dönüştürülmesi
 istenir. Function burada bir doğruluk kararı vermez; gelen metni standart bir
 metne dönüştürür.
@@ -78,7 +78,7 @@ Sonucu iki ondalık basamağa yuvarla.
 ### Business açısından burada ne yapılıyor?
 
 Bir e-ticaret kampanyasında uygun ürünlerin satış fiyatı yüzde 20 azaltılır.
-Predicate kullanılsaydı yalnızca "ürün kampanyaya uygun mu?" kararı verilirdi.
+Predicate kullanılsaydı yalnızca "ürün kampanyaya uygun mu? " kararı verilirdi.
 Burada ise mevcut fiyat yeni bir fiyata dönüştürülür; bu nedenle Function
 kullanılır.
 
@@ -91,8 +91,8 @@ Person(String name, int age, String city)
 PersonSummary(String displayName, String city)
 ```
 
-Bir `Person` nesnesini `PersonSummary` nesnesine dönüştüren
-`Function<Person, PersonSummary>` tanımla. `displayName` büyük harfli olmalı.
+Bir `Person` nesnesini `PersonSummary` nesnesine dönüştüren `Function<Person,
+PersonSummary>` tanımla. `displayName` büyük harfli olmalı.
 
 Örnek:
 
@@ -150,10 +150,11 @@ Aynı metodu değiştirmeden şu dönüşümleri yap:
 
 ### Business açısından burada ne yapılıyor?
 
-Bir uygulamada dışa aktarma, raporlama ve API cevabı hazırlama gibi pek çok işlem
-aynı "listedeki her elemanı başka bir değere dönüştür" algoritmasını kullanır.
-Algoritmayı tekrar yazmak yerine dönüşüm davranışı Function olarak metoda
-gönderilir. Metot dönüşümün ayrıntısını bilmez; yalnızca `apply()` çalıştırır.
+Bir uygulamada dışa aktarma, raporlama ve API cevabı hazırlama gibi pek çok
+işlem aynı "listedeki her elemanı başka bir değere dönüştür" algoritmasını
+kullanır. Algoritmayı tekrar yazmak yerine dönüşüm davranışı Function olarak
+metoda gönderilir. Metot dönüşümün ayrıntısını bilmez; yalnızca `apply()`
+çalıştırır.
 
 ## 7. Sipariş satırının toplamını hesaplama
 
@@ -163,8 +164,8 @@ gönderilir. Metot dönüşümün ayrıntısını bilmez; yalnızca `apply()` ç
 OrderLine(String productName, int quantity, double unitPrice)
 ```
 
-Her sipariş satırını toplam tutarına dönüştüren bir
-`Function<OrderLine, Double>` tanımla:
+Her sipariş satırını toplam tutarına dönüştüren bir `Function<OrderLine,
+Double>` tanımla:
 
 ```text
 satır toplamı = quantity * unitPrice
@@ -199,7 +200,7 @@ Bu Function'ları `andThen()` ile birleştirerek tek bir dönüşüm oluştur.
 Örnek:
 
 ```text
-"  ALICE@EXAMPLE.COM  " -> "example.com"
+"  ALICE@EXAMPLE. COM  " -> "example.com"
 ```
 
 Bu alıştırmada girdinin geçerli bir e-posta olduğunu varsay.
@@ -246,11 +247,11 @@ PayrollSummary(String employeeName, double annualSalary)
 Üç aşamalı bir dönüşüm oluştur:
 
 1. `Function<String, Employee>`: `"Alice,Engineering,5000"` biçimindeki CSV
-   satırını `Employee` nesnesine dönüştürsün.
+satırını `Employee` nesnesine dönüştürsün.
 2. `Function<Employee, PayrollSummary>`: Çalışanı yıllık maaş özetine
-   dönüştürsün (`monthlySalary * 12`).
+dönüştürsün (`monthlySalary * 12`).
 3. İki Function'ı `andThen()` ile birleştirerek doğrudan
-   `String -> PayrollSummary` dönüşümü oluştur.
+`String -> PayrollSummary` dönüşümü oluştur.
 
 Örnek:
 
@@ -265,6 +266,5 @@ Birden fazla CSV satırını Stream `map()` ile bordro özetleri listesine dön�
 
 İnsan kaynakları sistemi dışarıdan CSV verisi alabilir, fakat uygulama ham metin
 yerine nesnelerle çalışır. İlk Function dış veri biçimini domain nesnesine,
-ikinci Function domain nesnesini bordro raporuna dönüştürür. Zincirleme sayesinde
-bu iki aşama tek bir tekrar kullanılabilir veri hattı hâline gelir.
-
+ikinci Function domain nesnesini bordro raporuna dönüştürür. Zincirleme
+sayesinde bu iki aşama tek bir tekrar kullanılabilir veri hattı hâline gelir.
