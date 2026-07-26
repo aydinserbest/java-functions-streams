@@ -32,6 +32,12 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
   ise aynı dizindeki `iteration-evolution.md` dosyasındadır. Klasik `for`,
   enhanced `for`, `forEach + Consumer`, lambda, method reference ve
   external/internal iteration ayrımı ele alındı.
+- Ebook'un collections bölümünde isimleri büyük harfe dönüştüren `Transform`
+  sınıfı işlendi. Ayrıntılı açıklama aynı dizindeki `transform-explanation.md`
+  dosyasındadır. `map()` ile `Function`, `forEach()` ile `Consumer`, lazy
+  çalışma, dış mutable listeyi `forEach()` içinde değiştirmenin sakıncaları,
+  `List.add()` boolean döndürse de lambdanın hedef tipe göre Consumer olması ve
+  `map(...).toList()` tercihi ele alındı.
 - Ebook'un `introduction` paketindeki `Cities`, `DiscountImperative` ve
   `DiscountFunctional` sınıfları işlendi. Şehir listesinde Chicago arama ile
   fiyatı 20'den yüksek ürünlere yüzde 10 indirim uygulayıp toplamı bulma
