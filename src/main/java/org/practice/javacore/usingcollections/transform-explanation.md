@@ -950,3 +950,783 @@ person -> new PersonDto(person.getName())
 ```
 
 Hepsi `map()`tir çünkü her girdi elemanına karşılık yeni bir çıktı elemanı üretir.
+
+# `map()` ve `filter()` Metotlarının Stream Döndürmesi
+
+Burada daha önce konuştuğumuz birkaç önemli konu tek örnekte birleşiyor. Aklındaki ana konu büyük ihtimalle şu:
+
+> `map()` ve `filter()` işlemi hemen tamamlayıp bir `List` döndürmez; yeni bir `Stream` döndürür. Bu Stream, terminal operation çağrılana kadar çalıştırılmayı bekleyen bir işlem pipeline’ıdır.
+
+## 1. `stream()` ile başlayan tip akışı
+
+Başlangıçta elinde bir koleksiyon var:
+
+```java
+List<String> friends =
+        List.of("Alice", "Bob", "Charlie", "David");
+```
+
+Sonra:
+
+```java
+friends.stream()
+```
+
+çağrısı yapılıyor.
+
+Tip akışı:
+
+```text
+List<String>
+    ↓ stream()
+Stream<String>
+```
+
+Liste hâlâ duruyor. `stream()` listeyi Stream’e “çevirip yok etmez”. Listedeki elemanları işleyebilecek bir Stream pipeline’ı başlatır.
+
+## 2. `map()` yeni bir Stream döndürür
+
+```java
+Stream<String> stringStream = friends.stream()
+        .map(String::toUpperCase);
+```
+
+Tip akışı:
+
+```text
+List<String>
+    ↓ stream()
+Stream<String>
+    ↓ map(String::toUpperCase)
+Stream<String>
+```
+
+`map()` her String girdisinden yeni bir String çıktısı üretecek davranışı taşıyor:
+
+```text
+"Alice"   -> "ALICE"
+"Bob"     -> "BOB"
+"Charlie" -> "CHARLIE"
+"David"   -> "DAVID"
+```
+
+Ancak bu satır tamamlandığında isimler henüz büyük harfe çevrilmiş olmak zorunda değildir:
+
+```java
+Stream<String> stringStream = friends.stream()
+        .map(String::toUpperCase);
+```
+
+Çünkü `map()` bir intermediate operation’dır. Lazy çalışır.
+
+`stringStream` değişkeninin tuttuğu şey hazır sonuç listesi değil, kabaca şu işlem tarifidir:
+
+```text
+Friends listesinden elemanları al
+        ↓
+Her elemanı büyük harfe dönüştür
+        ↓
+Sonraki işlemi bekle
+```
+
+Gerçek dolaşma şu terminal operation geldiğinde başlar:
+
+```java
+stringStream.forEach(System.out::println);
+```
+
+Akış:
+
+```text
+"Alice" alınır
+    ↓ map()
+"ALICE" üretilir
+    ↓ forEach()
+ALICE yazdırılır
+```
+
+Ardından Bob için aynı zincir çalışır:
+
+```text
+"Bob" alınır
+    ↓ map()
+"BOB" üretilir
+    ↓ forEach()
+BOB yazdırılır
+```
+
+Burada önce bütün isimlerin dönüştürülüp sonra topluca yazdırılması şart değildir. Stream pipeline çoğunlukla elemanları zincirden tek tek geçirir.
+
+## 3. `map()` koleksiyon döndürmez
+
+Aklındaki önemli ayrımlardan biri muhtemelen buydu:
+
+```java
+Stream<String> stringStream = friends.stream()
+        .map(String::toUpperCase);
+```
+
+`map()` sonucunda şu oluşmaz:
+
+```java
+List<String>
+```
+
+Şu oluşur:
+
+```java
+Stream<String>
+```
+
+Yeni bir liste istiyorsan terminal operation gerekir:
+
+```java
+List<String> uppercaseNames = friends.stream()
+        .map(String::toUpperCase)
+        .toList();
+```
+
+Tip akışı:
+
+```text
+List<String>
+    ↓ stream()
+Stream<String>
+    ↓ map()
+Stream<String>
+    ↓ toList()
+List<String>
+```
+
+Dolayısıyla:
+
+```java
+map(...)
+```
+
+her elemanın yeni karşılığını üreten bir Stream döndürür.
+
+```java
+toList()
+```
+
+ise bu değerleri gerçekten bir sonuç koleksiyonunda toplar.
+
+## 4. `filter()` da Stream döndürür
+
+İkinci örnek:
+
+```java
+Stream<String> lengthString = friends.stream()
+        .filter(name -> name.length() > 3);
+```
+
+Tip akışı:
+
+```text
+List<String>
+    ↓ stream()
+Stream<String>
+    ↓ filter(...)
+Stream<String>
+```
+
+`filter()` da intermediate operation’dır ve yeni bir Stream döndürür.
+
+Fakat `map()` ile yaptığı iş aynı değildir.
+
+### `map()`
+
+Her elemandan yeni bir çıktı üretir:
+
+```text
+Alice   -> ALICE
+Bob     -> BOB
+Charlie -> CHARLIE
+David   -> DAVID
+```
+
+### `filter()`
+
+Elemanı dönüştürmez. Yalnızca Stream’de kalıp kalmayacağına karar verir:
+
+```text
+Alice   -> uzunluk 5 -> true  -> Stream'de kalır
+Bob     -> uzunluk 3 -> false -> elenir
+Charlie -> uzunluk 7 -> true  -> Stream'de kalır
+David   -> uzunluk 5 -> true  -> Stream'de kalır
+```
+
+Sonuç:
+
+```text
+Alice
+Charlie
+David
+```
+
+Tipin değişmemesinin sebebi bu:
+
+```text
+filter öncesi: Stream<String>
+filter sonrası: Stream<String>
+```
+
+Çünkü `"Alice"` başka bir değere dönüşmedi; ya olduğu gibi kaldı ya da elendi.
+
+## 5. Function ve Predicate bağlantısı
+
+Daha önce konuştuğumuz functional interface bağlantısı burada çok net görülebilir.
+
+### `map()` Function alır
+
+```java
+.map(String::toUpperCase)
+```
+
+Lambda karşılığı:
+
+```java
+.map(name -> name.toUpperCase())
+```
+
+Davranış:
+
+```text
+String alır -> String üretir
+```
+
+Yani:
+
+```java
+Function<String, String>
+```
+
+Kabaca:
+
+```java
+String result = function.apply(name);
+```
+
+### `filter()` Predicate alır
+
+```java
+.filter(name -> name.length() > 3)
+```
+
+Davranış:
+
+```text
+String alır -> boolean üretir
+```
+
+Yani:
+
+```java
+Predicate<String>
+```
+
+Kabaca:
+
+```java
+boolean keep = predicate.test(name);
+```
+
+`true` ise eleman kalır, `false` ise elenir.
+
+### `forEach()` Consumer alır
+
+```java
+.forEach(System.out::println)
+```
+
+Lambda karşılığı:
+
+```java
+.forEach(name -> System.out.println(name))
+```
+
+Davranış:
+
+```text
+String alır -> yazdırır -> değer döndürmez
+```
+
+Yani:
+
+```java
+Consumer<String>
+```
+
+Kabaca:
+
+```java
+consumer.accept(name);
+```
+
+Tam bağlantı:
+
+```text
+map()     -> Function  -> apply()  -> yeni değer üretir
+filter()  -> Predicate -> test()   -> true/false kararı verir
+forEach() -> Consumer  -> accept() -> işlem yapar
+```
+
+## 6. Intermediate ve terminal operation ayrımı
+
+Senin kodunda:
+
+```java
+friends.stream()
+        .map(String::toUpperCase);
+```
+
+ve:
+
+```java
+friends.stream()
+        .filter(name -> name.length() > 3);
+```
+
+şunlar intermediate operation’dır:
+
+```text
+map()
+filter()
+```
+
+Özellikleri:
+
+- Yeni Stream döndürürler.
+- Pipeline’ın devam etmesine izin verirler.
+- Genellikle lazy çalışırlar.
+- Tek başlarına sonucu tüketmezler.
+
+Şu ise terminal operation’dır:
+
+```java
+forEach()
+```
+
+Özellikleri:
+
+- Stream’i dolaşmaya başlatır.
+- Elemanları tüketir.
+- Pipeline’ı tamamlar.
+- Bu kullanımda `void` döndürür.
+
+## 7. Stream tek kullanımlıktır
+
+Şu kullanım geçerlidir:
+
+```java
+Stream<String> stringStream = friends.stream()
+        .map(String::toUpperCase);
+
+stringStream.forEach(System.out::println);
+```
+
+Fakat aynı Stream’i ikinci kez kullanamazsın:
+
+```java
+stringStream.forEach(System.out::println);
+stringStream.forEach(System.out::println); // Hata
+```
+
+İkinci çağrıda genellikle şu hata oluşur:
+
+```text
+IllegalStateException:
+stream has already been operated upon or closed
+```
+
+Çünkü ilk `forEach()` Stream’i tüketmiştir.
+
+Tekrar çalıştırmak istersen kaynak listeden yeni Stream oluşturmalısın:
+
+```java
+friends.stream()
+        .map(String::toUpperCase)
+        .forEach(System.out::println);
+
+friends.stream()
+        .map(String::toUpperCase)
+        .forEach(System.out::println);
+```
+
+Liste tekrar kullanılabilir; Stream tekrar kullanılamaz:
+
+```text
+List   -> tekrar tekrar stream oluşturabilir
+Stream -> terminal operation sonrasında tüketilmiş olur
+```
+
+## 8. Kaynak liste değişmez
+
+Hem `map()` hem `filter()` sonrasında kaynak liste aynı kalır:
+
+```java
+System.out.println(friends);
+```
+
+Çıktı:
+
+```text
+[Alice, Bob, Charlie, David]
+```
+
+`map()`:
+
+```text
+"Alice" değerini değiştirip listenin içine geri koymaz.
+Ondan "ALICE" çıktısı üretir.
+```
+
+`filter()`:
+
+```text
+"Bob" değerini kaynak listeden silmez.
+Yalnızca oluşturulan Stream akışına dahil etmez.
+```
+
+Bu yüzden:
+
+```text
+Kaynak liste:
+[Alice, Bob, Charlie, David]
+
+map sonucu:
+[ALICE, BOB, CHARLIE, DAVID]
+
+filter sonucu:
+[Alice, Charlie, David]
+```
+
+## 9. İki işlem aynı pipeline’da birleşebilir
+
+`map()` ve `filter()` Stream döndürdüğü için birbirinin arkasına eklenebilir:
+
+```java
+friends.stream()
+        .filter(name -> name.length() > 3)
+        .map(String::toUpperCase)
+        .forEach(System.out::println);
+```
+
+Akış:
+
+```text
+Alice
+  ↓ length > 3? true
+  ↓ toUpperCase
+ALICE
+  ↓ println
+
+Bob
+  ↓ length > 3? false
+  ↓ burada elenir; map ve forEach çalışmaz
+
+Charlie
+  ↓ length > 3? true
+  ↓ toUpperCase
+CHARLIE
+  ↓ println
+
+David
+  ↓ length > 3? true
+  ↓ toUpperCase
+DAVID
+  ↓ println
+```
+
+Çıktı:
+
+```text
+ALICE
+CHARLIE
+DAVID
+```
+
+Bu zincirin kurulabilmesinin sebebi hem `filter()` hem `map()` metodunun tekrar Stream döndürmesidir:
+
+```text
+Stream<String>
+    ↓ filter()
+Stream<String>
+    ↓ map()
+Stream<String>
+    ↓ forEach()
+void
+```
+
+## Kısa özet
+
+Senin hatırladığın konu büyük ihtimalle şu zihinsel model:
+
+```text
+stream()
+→ Koleksiyondan bir işlem akışı başlatır.
+
+map()
+→ Her elemandan yeni bir çıktı üretir.
+→ Yeni Stream döndürür.
+→ Function kullanır.
+
+filter()
+→ Her eleman için kal/elen kararı verir.
+→ Yeni Stream döndürür.
+→ Predicate kullanır.
+
+forEach()
+→ Akışı gerçekten tüketir.
+→ Her kalan elemana işlem uygular.
+→ Consumer kullanır.
+→ void döndürür.
+```
+
+En kritik cümle:
+
+> `map()` ve `filter()` hazır sonucu taşıyan koleksiyonlar değil, terminal operation çağrıldığında çalıştırılacak yeni Stream aşamaları döndürür.
+
+# `map()`, Lazy Çalışma ve Terminal Operation İhtiyacı
+
+Evet, üç ifade de aynı Stream çalışma modelinin farklı parçalarını anlatıyor ve birbirini tamamlıyor. Ortak merkezleri terminal operation ihtiyacı.
+
+Fakat küçük bir ayrımı net tutalım:
+
+> Her terminal operation Stream’i çalıştırır; fakat her terminal operation yeni bir koleksiyon oluşturmaz.
+
+Örneğin:
+
+```java
+forEach(...)
+```
+
+Stream’i çalıştırır ve değerleri yazdırır ama koleksiyon üretmez.
+
+```java
+toList()
+```
+
+Stream’i çalıştırır ve üretilen değerlerden yeni bir liste oluşturur.
+
+## Üç ifadeyi birleştirelim
+
+### 1. `map()` yeni bir Stream döndürür
+
+```java
+Stream<String> uppercaseStream = friends.stream()
+        .map(String::toUpperCase);
+```
+
+Tip olarak gerçekten şunu alırsın:
+
+```text
+Stream<String>
+```
+
+Ama bu Stream’in içinde önceden hazırlanmış şu değerlerin bulunduğunu düşünmemeliyiz:
+
+```text
+[ALICE, BOB, CHARLIE, DAVID]
+```
+
+Daha doğru zihinsel model:
+
+```text
+Kaynak: friends
+Kural:  Her isim geldiğinde büyük harfe çevir
+Durum:  Henüz çalıştırılmadı
+```
+
+Yani `map()`:
+
+- Pipeline’a yeni bir dönüşüm aşaması ekler.
+- Bu aşamayı temsil eden yeni bir Stream döndürür.
+- Henüz kaynak listeyi dolaşmaz.
+- Henüz büyük harfli sonuçları toplamaz.
+
+Bu nedenle şu cümleyi daha hassas kurabiliriz:
+
+> `map()`, her elemanın nasıl dönüştürüleceğini tarif eden yeni bir Stream aşaması döndürür.
+
+## 2. `map()` intermediate operation olduğu için lazy çalışır
+
+Şu satırlar çalıştığında:
+
+```java
+Stream<String> uppercaseStream = friends.stream()
+        .map(String::toUpperCase);
+```
+
+pipeline kurulmuştur fakat tüketilmemiştir:
+
+```text
+friends
+   ↓
+stream()
+   ↓
+toUpperCase uygulanacak
+   ↓
+terminal operation bekleniyor
+```
+
+Bu aşamada kabaca şunlar vardır:
+
+```text
+Kaynak hazır:          Evet
+Dönüşüm kuralı hazır:  Evet
+Liste dolaşıldı mı:    Hayır
+"ALICE" üretildi mi:   Hayır
+Sonuç toplandı mı:     Hayır
+```
+
+`uppercaseStream`, hazır sonuçların bulunduğu bir kutu değil; çalıştırılmayı bekleyen pipeline’dır.
+
+## 3. Terminal operation pipeline’ı çalıştırır
+
+Şimdi şunu çağırırsan:
+
+```java
+uppercaseStream.forEach(System.out::println);
+```
+
+terminal operation gelir ve gerçek dolaşma başlar:
+
+```text
+Alice kaynaktan alınır
+        ↓
+map: ALICE üretilir
+        ↓
+forEach: ALICE yazdırılır
+
+Bob kaynaktan alınır
+        ↓
+map: BOB üretilir
+        ↓
+forEach: BOB yazdırılır
+```
+
+Burada `forEach()` sonucu tüketir ama yeni koleksiyon oluşturmaz.
+
+Çıktı:
+
+```text
+ALICE
+BOB
+CHARLIE
+DAVID
+```
+
+## Koleksiyon istiyorsak `toList()`
+
+Business ihtiyacı büyük harfli isimleri yeni bir listede saklamaksa:
+
+```java
+List<String> uppercaseNames = friends.stream()
+        .map(String::toUpperCase)
+        .toList();
+```
+
+`toList()` terminal operation olduğu için pipeline’ı çalıştırır ve sonuçları bir listede toplar:
+
+```text
+Alice
+  ↓ map
+ALICE
+  ↓
+toList içinde tutulur
+
+Bob
+  ↓ map
+BOB
+  ↓
+toList içinde tutulur
+```
+
+Nihai sonuç:
+
+```text
+uppercaseNames = [ALICE, BOB, CHARLIE, DAVID]
+```
+
+Tam tip ve çalışma akışı:
+
+```text
+List<String> friends
+        ↓ stream()
+Stream<String>
+        ↓ map(String::toUpperCase)
+Stream<String> — dönüşüm tarifi var, henüz çalışmadı
+        ↓ toList()
+List<String> — pipeline çalıştı, sonuçlar toplandı
+```
+
+## `forEach()` ve `toList()` farkı
+
+İkisi de terminal operation’dır:
+
+```java
+friends.stream()
+        .map(String::toUpperCase)
+        .forEach(System.out::println);
+```
+
+```text
+Pipeline çalışır.
+Büyük harfli değerler üretilir.
+Değerler ekrana yazdırılır.
+Yeni liste oluşmaz.
+Sonuç tipi void'dur.
+```
+
+Diğeri:
+
+```java
+List<String> uppercaseNames = friends.stream()
+        .map(String::toUpperCase)
+        .toList();
+```
+
+```text
+Pipeline çalışır.
+Büyük harfli değerler üretilir.
+Değerler yeni listede toplanır.
+Sonuç tipi List<String>'dir.
+```
+
+## En doğru birleşik ifade
+
+Üç açıklamayı tek cümlede şöyle birleştirebiliriz:
+
+> `map()` lazy çalışan bir intermediate operation’dır. Her eleman için uygulanacak dönüşümü pipeline’a ekleyip yeni bir Stream döndürür; elemanlar ancak `forEach()` veya `toList()` gibi bir terminal operation geldiğinde kaynaktan alınır ve gerçekten dönüştürülür. `toList()` seçilirse bu sonuçlar ayrıca yeni bir koleksiyonda toplanır.
+
+Zihinsel model:
+
+```text
+stream()
+→ Kaynağa bağlı bir Stream oluşturur.
+
+map()
+→ Dönüşüm tarifini pipeline'a ekler.
+→ Yeni Stream döndürür.
+→ Henüz dolaşmayı başlatmaz.
+
+terminal operation
+→ Dolaşmayı başlatır.
+→ map davranışını elemanlar üzerinde çalıştırır.
+
+forEach()
+→ Sonuçları tüketip işlem yapar.
+
+toList()
+→ Sonuçları tüketip yeni liste oluşturur.
+```
+
+Dolayısıyla vardığın sonuç doğru:
+
+> `map()` tek başına dönüşümü tamamlayan son adım değildir; kurduğu dönüşüm aşamasının gerçekten çalışması için terminal operation gerekir.
+
+Sadece şu ayrımı ekliyoruz:
+
+> Terminal operation çalışmayı başlatır; yeni koleksiyon ise özellikle `toList()` veya `collect(...)` gibi sonuç toplayan bir terminal operation seçilirse oluşur.
