@@ -192,6 +192,14 @@ action.accept(value);
 - `forEach(consumer)`, koleksiyondaki her eleman için `accept()` çağırır.
 - Consumer `andThen()` zincirinde iki Consumer aynı girdiyi sırayla alır; ilk
   Consumer sonuç üretip ikinciye aktarmaz çünkü dönüş tipi `void`dur.
+- Stok satışı örneğinde `Consumer<Stock>` ile mevcut mutable nesnenin miktarını
+  azaltma işlendi. `accept(stock)` tek ürünü, `stocks.forEach(consumer)` ise
+  listedeki her ürünü işler; setter ile aynı nesneyi değiştirmek yan etkidir.
+- Aynı stok requirement'ının yeni nesne döndüren `Function<Stock, Stock>` veya
+  `UnaryOperator<Stock>` tasarımıyla da çözülebileceği, interface seçiminin
+  “mevcut nesneyi değiştir” ile “yeni sonuç üret” ayrımına bağlı olduğu işlendi.
+- Functional interface'in mutlaka lambda olmadığı; lambda, method reference,
+  anonymous class veya normal class ile uygulanabileceği ele alındı.
 
 ### Stream bağlantısının kısa özeti
 
@@ -255,6 +263,13 @@ Dosyalar:
 - Consumer'ın sonucu yazdırması ile Function'ın sonucu döndürmesi arasındaki fark
 - `andThen()` içinde aynı girdinin iki Consumer'a sırayla verilmesi
 - `Map<K,V>` ile Stream `map()` metodunun farklı kavramlar olması
+- `Consumer<Stock>` ile nesne durumu değiştirme, yan etki ve sıfır stok kuralı
+- `accept()` ile tek ürün ve `forEach()` ile bütün ürünler arasındaki business
+  farkı
+- Mutable Consumer çözümü ile immutable `UnaryOperator<Stock>` çözümünün tasarım
+  farkı
+- Lambda, method reference ve anonymous class'ın aynı functional interface
+  sözleşmesini uygulamanın farklı biçimleri olması
 
 ### Method reference
 
@@ -339,6 +354,12 @@ Kapsamlı örneklerin konu anlatımı ve önerilen çalışma sırası:
 
 - Requirement'lar: `docs/consumer-requirements.md`
 - Örnek çözümler: `docs/consumer-solutions.md`
+- Stok satışı, `accept()` ve `forEach()`:
+  `src/main/java/org/practice/javacore/usingcollections/consumer-stock-sale-explanation.md`
+- Consumer, Function ve UnaryOperator seçimi:
+  `src/main/java/org/practice/javacore/usingcollections/choosing-consumer-or-function-for-stock-sale.md`
+- Functional interface uygulama biçimleri:
+  `src/main/java/org/practice/javacore/usingcollections/functional-interface-implementation-forms.md`
 
 ### Özel functional interface ve lambda
 
