@@ -3,13 +3,81 @@
 Bu dosya, yeni bir Codex oturumunda önceki uzun konuşmayı yeniden kurmak zorunda
 kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
 
+## Güncel oturum devri — ebook çalışması
+
+- Bu öğrenme çalışmasının canonical proje/repository yolu:
+  `/Users/freefree/Projects/java-core/java-functions-collections`
+- `/Users/freefree/Projects/java-lambdas-streams` ayrı ve henüz ilk commit'i
+  olmayan başka bir IntelliJ projesidir. Finder veya IntelliJ'de bu klasör açık
+  olabilir; ebook branch'indeki dosyalar aranırken onunla karıştırılmamalıdır.
+- Aktif çalışma branch'i `ebook-practice` branch'idir.
+- Branch, GitHub'daki `origin/ebook-practice` branch'ini takip eder. Remote:
+  `https://github.com/aydinserbest/java-functions-streams.git`
+- `main`, önceki Java functional interface, collections ve Stream çalışmalarının
+  korunduğu ana branch'tir.
+- Kullanıcı artık aynı konudaki bir ebook'u bölüm bölüm çalışacaktır. Ebook metnini
+  veya ekran görüntüsünü küçük parçalar halinde gönderecek; her parça geldiğinde
+  önce sade Türkçeyle anlamı ve amacı açıklanacaktır.
+- Açıklamada yalnızca çeviri yapılmamalı; kodun hangi problemi çözdüğü, verinin
+  adım adım nasıl aktığı, lambda'nın hangi functional interface sözleşmesine
+  oturduğu ve davranışın hangi metot çağrısında gerçekten çalıştığı
+  somutlaştırılmalıdır.
+- Kullanıcı isterse açıklamadan sonra ebook örneği birlikte kodlanacaktır. Kod,
+  ebook'un ilerleme sırasına uygun paket ve sınıflarda tutulmalı; henüz gelmeyen
+  bölümler varsayılarak ileri konu eklenmemelidir.
+- Kullanıcının mevcut ebook kodu önce okunmalı, ebook parçasıyla karşılaştırılmalı
+  ve çözümü doğrudan ezmeden önce yaptığı yaklaşım açıklanmalıdır.
+- Kullanıcı kısa biçimde “bu kısmı açıkla”, “burada ne oluyor?” veya “devam
+  edelim” dediğinde bu ebook çalışma bağlamı varsayılan kabul edilmeli; bağlamı
+  yeniden uzun uzun anlatması istenmemelidir.
+- 26 Temmuz 2026 itibarıyla branch'te `introduction` ve `usingcollections`
+  paketlerinde ebook çalışmaları bulunuyor. Son push edilen commit
+  `60d3513 Explain lazy stream transformation pipelines` commit'idir.
+- Ebook'un collections bölümünde iteration evrimi işlendi. Kod
+  `src/main/java/org/practice/javacore/usingcollections/Iteration.java`, açıklama
+  ise aynı dizindeki `iteration-evolution.md` dosyasındadır. Klasik `for`,
+  enhanced `for`, `forEach + Consumer`, lambda, method reference ve
+  external/internal iteration ayrımı ele alındı.
+- Ebook'un collections bölümünde isimleri büyük harfe dönüştüren `Transform`
+  sınıfı işlendi. Ayrıntılı açıklama aynı dizindeki `transform-explanation.md`
+  dosyasındadır. `map()` ile `Function`, `forEach()` ile `Consumer`, lazy
+  çalışma, dış mutable listeyi `forEach()` içinde değiştirmenin sakıncaları,
+  `List.add()` boolean döndürse de lambdanın hedef tipe göre Consumer olması ve
+  `map(...).toList()` tercihi ele alındı.
+- `TransformStreamExample.java` ile `map()` ve `filter()` sonrasında oluşan
+  Stream'in ayrı değişkende tutulması denendi. Şu zihinsel model yerleşti:
+  `map()` girdiden çıktı üreten bir pipeline aşaması ekler; gündelik anlamda
+  biçim dönüşümü (`String -> uppercase String`), özellik çıkarma/projection
+  (`String -> length`) veya başka nesne üretme yapabilir. `map()` ve `filter()`
+  lazy intermediate operation'lardır; elemanlar ancak `forEach()`, `toList()`
+  gibi terminal operation geldiğinde gerçekten işlenir.
+- Her terminal operation pipeline'ı çalıştırır fakat her terminal operation
+  koleksiyon üretmez: `forEach()` yan etki yapıp `void` döndürür, `toList()` ise
+  sonuçları yeni `List` içinde toplar. `map()` koleksiyon değil yeni bir Stream
+  aşaması döndürür; `Stream` tek kullanımlıdır ve kaynak liste değişmez.
+- `PickElements.java` ile `"N"` harfiyle başlayan bütün isimleri geleneksel
+  döngü ve Stream `filter()` yaklaşımıyla seçme işlendi. Bunun tek eleman bulan
+  `findFirst()`/`findAny()` görevi değil, koşula uyan grubu seçme olduğu;
+  `startsWith()` lambdasının `Predicate<String>` sözleşmesi, `forEach()` ile
+  `collect()` terminal işlemleri ve `nameStartsWithN::contains` kullanımının
+  önceki sonuç listesine gereksiz bağımlılık oluşturduğu açıklandı.
+- Collections ebook notlarının Finder'daki gerçek konumu:
+  `src/main/java/org/practice/javacore/usingcollections`. Bu dizinde
+  `iteration-evolution.md` ve `transform-explanation.md` bulunur; proje kökünde
+  doğrudan görünmezler.
+- Ebook'un `introduction` paketindeki `Cities`, `DiscountImperative` ve
+  `DiscountFunctional` sınıfları işlendi. Şehir listesinde Chicago arama ile
+  fiyatı 20'den yüksek ürünlere yüzde 10 indirim uygulayıp toplamı bulma
+  senaryoları için kısa business açıklamaları ve kod akışını anlatan yorumlar
+  eklendi.
+
 ## Öğrencinin amacı ve seviyesi
 
 - Proje, Java lambda ifadelerini, hazır functional interface'leri ve collections
   kullanımını adım adım öğrenmek için kullanılıyor.
 - Konular yalnızca syntax olarak değil, gerçek bir uygulamadaki business karşılığı
   üzerinden anlaşılmak isteniyor.
-- Stream API serisi `org.practice.streamsandfunctions.streams` altında sistematik olarak
+- Stream API serisi `org.practice.fpij.streams` altında sistematik olarak
   işleniyor. Temel oluşturma ve dolaşma sonrasında `filter`, `map`, `flatMap`,
   `forEach`, `limit`, `skip`, `reduce`, `collect` ve `count` konularına geçildi.
 - Kod örneklerinde lambda'nın hangi interface metodunu uyguladığı ve davranışın ne
@@ -130,6 +198,14 @@ action.accept(value);
 - `forEach(consumer)`, koleksiyondaki her eleman için `accept()` çağırır.
 - Consumer `andThen()` zincirinde iki Consumer aynı girdiyi sırayla alır; ilk
   Consumer sonuç üretip ikinciye aktarmaz çünkü dönüş tipi `void`dur.
+- Stok satışı örneğinde `Consumer<Stock>` ile mevcut mutable nesnenin miktarını
+  azaltma işlendi. `accept(stock)` tek ürünü, `stocks.forEach(consumer)` ise
+  listedeki her ürünü işler; setter ile aynı nesneyi değiştirmek yan etkidir.
+- Aynı stok requirement'ının yeni nesne döndüren `Function<Stock, Stock>` veya
+  `UnaryOperator<Stock>` tasarımıyla da çözülebileceği, interface seçiminin
+  “mevcut nesneyi değiştir” ile “yeni sonuç üret” ayrımına bağlı olduğu işlendi.
+- Functional interface'in mutlaka lambda olmadığı; lambda, method reference,
+  anonymous class veya normal class ile uygulanabileceği ele alındı.
 
 ### Stream bağlantısının kısa özeti
 
@@ -193,6 +269,13 @@ Dosyalar:
 - Consumer'ın sonucu yazdırması ile Function'ın sonucu döndürmesi arasındaki fark
 - `andThen()` içinde aynı girdinin iki Consumer'a sırayla verilmesi
 - `Map<K,V>` ile Stream `map()` metodunun farklı kavramlar olması
+- `Consumer<Stock>` ile nesne durumu değiştirme, yan etki ve sıfır stok kuralı
+- `accept()` ile tek ürün ve `forEach()` ile bütün ürünler arasındaki business
+  farkı
+- Mutable Consumer çözümü ile immutable `UnaryOperator<Stock>` çözümünün tasarım
+  farkı
+- Lambda, method reference ve anonymous class'ın aynı functional interface
+  sözleşmesini uygulamanın farklı biçimleri olması
 
 ### Method reference
 
@@ -277,6 +360,12 @@ Kapsamlı örneklerin konu anlatımı ve önerilen çalışma sırası:
 
 - Requirement'lar: `docs/consumer-requirements.md`
 - Örnek çözümler: `docs/consumer-solutions.md`
+- Stok satışı, `accept()` ve `forEach()`:
+  `src/main/java/org/practice/javacore/usingcollections/consumer-stock-sale-explanation.md`
+- Consumer, Function ve UnaryOperator seçimi:
+  `src/main/java/org/practice/javacore/usingcollections/choosing-consumer-or-function-for-stock-sale.md`
+- Functional interface uygulama biçimleri:
+  `src/main/java/org/practice/javacore/usingcollections/functional-interface-implementation-forms.md`
 
 ### Özel functional interface ve lambda
 
@@ -297,7 +386,7 @@ Kapsamlı örneklerin konu anlatımı ve önerilen çalışma sırası:
 - Comparator alıştırmaları: `docs/comparator-requirements.md`
 - Comparator örnek çözümleri: `docs/comparator-solutions.md`
 
-Map syntax'ını tekrar etmek için `org.practice.streamsandfunctions.mapexamples` paketinde
+Map syntax'ını tekrar etmek için `org.practice.fpij.mapexamples` paketinde
 üç açıklamalı demo ve bir Product POJO'su bulunur:
 
 - `BasicMapOperationsDemo`: `put`, `get`, `getOrDefault`, `containsKey`,
@@ -368,10 +457,13 @@ Map alıştırmaları:
 
 ## Sonraki muhtemel adımlar
 
-1. Functional interface, Map, Comparator veya Stream requirement'larını
-   öğrencinin seçtiği konudan başlayarak çözmek
-2. Her çözümde pipeline sırasını, intermediate/terminal ayrımını ve kullanılan
-   functional interface'i açıklamak
-3. Konu bazlı sorulardan sonra karışık Stream pipeline sorularına geçmek
-4. Consumer requirement'larına gerektiğinde geri dönmek ve kullanıcı istediğinde
-   `consumer-solutions.md` oluşturmak
+1. Kullanıcının göndereceği ilk veya sıradaki ebook parçasını sade Türkçe,
+   business karşılığı ve adım adım veri akışıyla açıklamak
+2. İstenirse parçaya ait örneği `ebook-practice` branch'inde mevcut paket düzenine
+   uyacak şekilde birlikte kodlamak
+3. Her yeni parçada önce mevcut ebook kodunu okuyup kullanıcının en son nerede
+   kaldığını belirlemek
+4. Ebook çalışması sırasında yeni bir konu tamamlandığında bu dosyanın güncel
+   oturum devri bölümüne konu ve ilgili dosyaları eklemek
+5. Eski requirement çalışmalarına yalnızca kullanıcı özellikle dönerse devam
+   etmek
