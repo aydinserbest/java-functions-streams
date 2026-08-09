@@ -55,6 +55,12 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
   koleksiyon üretmez: `forEach()` yan etki yapıp `void` döndürür, `toList()` ise
   sonuçları yeni `List` içinde toplar. `map()` koleksiyon değil yeni bir Stream
   aşaması döndürür; `Stream` tek kullanımlıdır ve kaynak liste değişmez.
+- `PickElements.java` ile `"N"` harfiyle başlayan bütün isimleri geleneksel
+  döngü ve Stream `filter()` yaklaşımıyla seçme işlendi. Bunun tek eleman bulan
+  `findFirst()`/`findAny()` görevi değil, koşula uyan grubu seçme olduğu;
+  `startsWith()` lambdasının `Predicate<String>` sözleşmesi, `forEach()` ile
+  `collect()` terminal işlemleri ve `nameStartsWithN::contains` kullanımının
+  önceki sonuç listesine gereksiz bağımlılık oluşturduğu açıklandı.
 - Collections ebook notlarının Finder'daki gerçek konumu:
   `src/main/java/org/practice/javacore/usingcollections`. Bu dizinde
   `iteration-evolution.md` ve `transform-explanation.md` bulunur; proje kökünde
@@ -71,7 +77,7 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
   kullanımını adım adım öğrenmek için kullanılıyor.
 - Konular yalnızca syntax olarak değil, gerçek bir uygulamadaki business karşılığı
   üzerinden anlaşılmak isteniyor.
-- Stream API serisi `org.practice.javacore.streams` altında sistematik olarak
+- Stream API serisi `org.practice.fpij.streams` altında sistematik olarak
   işleniyor. Temel oluşturma ve dolaşma sonrasında `filter`, `map`, `flatMap`,
   `forEach`, `limit`, `skip`, `reduce`, `collect` ve `count` konularına geçildi.
 - Kod örneklerinde lambda'nın hangi interface metodunu uyguladığı ve davranışın ne
@@ -380,7 +386,7 @@ Kapsamlı örneklerin konu anlatımı ve önerilen çalışma sırası:
 - Comparator alıştırmaları: `docs/comparator-requirements.md`
 - Comparator örnek çözümleri: `docs/comparator-solutions.md`
 
-Map syntax'ını tekrar etmek için `org.practice.javacore.mapexamples` paketinde
+Map syntax'ını tekrar etmek için `org.practice.fpij.mapexamples` paketinde
 üç açıklamalı demo ve bir Product POJO'su bulunur:
 
 - `BasicMapOperationsDemo`: `put`, `get`, `getOrDefault`, `containsKey`,
