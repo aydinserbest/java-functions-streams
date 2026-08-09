@@ -10,7 +10,7 @@ Bu yaklaşımda bütün alıştırmalar tek demo sınıfındadır. `main`, örne
 projesinde bütün Predicate örneklerini yan yana görmek için uygundur.
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -283,7 +283,7 @@ Kod bloklarının her biri ayrı `.java` dosyasıdır.
 ### 1. `UsernameValidationDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.function.Predicate;
 
@@ -306,7 +306,7 @@ public class UsernameValidationDemo {
 ### 2. `NumberCheckDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.function.Predicate;
 
@@ -331,7 +331,7 @@ public class NumberCheckDemo {
 ### 3. `ActiveUserDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -362,7 +362,7 @@ public class ActiveUserDemo {
 ### 4. `ProductStockDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -394,7 +394,7 @@ public class ProductStockDemo {
 ### 5. `OrderFilterDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -436,7 +436,7 @@ public class OrderFilterDemo {
 ### 6. `EmailValidationDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -469,7 +469,7 @@ public class EmailValidationDemo {
 ### 7. `CandidateFilterDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -510,7 +510,7 @@ public class CandidateFilterDemo {
 ### 8. `CustomerSearchDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -551,7 +551,7 @@ public class CustomerSearchDemo {
 ### 9. `InvoiceFilterDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -586,7 +586,7 @@ public class InvoiceFilterDemo {
 ### 10. `DynamicProductSearchDemo.java`
 
 ```java
-package org.practice.streamsandfunctions.lambda.exercises.predicate;
+package org.practice.streamsandfunctionalinterfaces.lambda.exercises.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;

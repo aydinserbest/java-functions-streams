@@ -9,7 +9,7 @@ kalmadan aynı öğrenme yaklaşımıyla devam edebilmek için tutulur.
   kullanımını adım adım öğrenmek için kullanılıyor.
 - Konular yalnızca syntax olarak değil, gerçek bir uygulamadaki business karşılığı
   üzerinden anlaşılmak isteniyor.
-- Stream API serisi `org.practice.streamsandfunctions.streams` altında sistematik olarak
+- Stream API serisi `org.practice.streamsandfunctionalinterfaces.streams` altında sistematik olarak
   işleniyor. Temel oluşturma ve dolaşma sonrasında `filter`, `map`, `flatMap`,
   `forEach`, `limit`, `skip`, `reduce`, `collect` ve `count` konularına geçildi.
 - Kod örneklerinde lambda'nın hangi interface metodunu uyguladığı ve davranışın ne
@@ -297,7 +297,7 @@ Kapsamlı örneklerin konu anlatımı ve önerilen çalışma sırası:
 - Comparator alıştırmaları: `docs/comparator-requirements.md`
 - Comparator örnek çözümleri: `docs/comparator-solutions.md`
 
-Map syntax'ını tekrar etmek için `org.practice.streamsandfunctions.mapexamples` paketinde
+Map syntax'ını tekrar etmek için `org.practice.streamsandfunctionalinterfaces.mapexamples` paketinde
 üç açıklamalı demo ve bir Product POJO'su bulunur:
 
 - `BasicMapOperationsDemo`: `put`, `get`, `getOrDefault`, `containsKey`,
