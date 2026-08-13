@@ -34,6 +34,26 @@ arr[0] = "Ayşe";
 System.out.println(names); // [Ayşe, Bob]
 ```
 
+## Pratikte fark nerede çıkıyor: `list.sort(...)`
+
+`List.sort(Comparator)`, listeyi **yerinde (in place)** sıralar — arkada
+her elemanı `set(...)` ile yeniden yerleştirir. `Arrays.asList()`
+elemanların `set()` ile değiştirilmesine izin verdiği için burada
+sorunsuz çalışır:
+
+```java
+List<Integer> numbers = Arrays.asList(40, 5, 20, 10);
+numbers.sort(null); // OK → [5, 10, 20, 40]
+```
+
+Aynı çağrıyı `List.of(...)` üzerinde denersen `set()` desteklenmediği
+için patlar:
+
+```java
+List<Integer> numbers = List.of(40, 5, 20, 10);
+numbers.sort(null); // UnsupportedOperationException
+```
+
 ## Özet
 
 | | `List.of(...)` | `Arrays.asList(...)` |
